@@ -34,21 +34,53 @@ Veterinary professionals:
 
 ### Features
 
-List the functionality that your app will include. These can be written as user stories or descriptions with related details. Do not describe _how_ these features are implemented, only _what_ needs to be implemented.
+-   as a user I want to:
+    -   see all my added pets
+    -   add a profile for my pet
+        -   add the following information: image (optional), age + date of birth, species, breed (optional), sex, select spayed or neutered, microchipped y or n and if so add the number, known medical conditions and when it was diagnosed, any medications and dosage/fequency, type of feed and amount fed per day / # of meals
+        -   update the above information as needed
+    -   see a log of my pet's vaccination history
+        -   add or update information as needed
+    -   see a log of my pet's weight
+        -   add new weights as necessary
+    -   keep an addional section for notes about changes in my pet's behaviour
+    -   upload and access my pet's veterinary records
 
 ## Implementation
 
 ### Tech Stack
 
-List technologies that will be used in your app, including any libraries to save time or provide more functionality. Be sure to research any potential limitations.
+-   React
+-   Javascript
+-   MySQL
+-   Node.js
+-   Client libraries:
+    -   react
+    -   react-router
+    -   react-router-dom
+    -   axio-sass
+    -   sass
+-   Server libraries:
+    -   knex
+    -   express
+    -   cors
+    -   uuid
+    -   dotenv
+    -   multer
 
 ### APIs
 
-List any external sources of data that will be used in your app.
+No external API, I will create my own.
 
 ### Sitemap
 
-List the pages of your app with brief descriptions. You can show this visually, or write it out.
+Home Page - explains what we are, why we're doing it, how to use
+My Pets - a page with a card for each pet the user has added with the option to view more details. Each card contains basic details (image, name, DOB, sex)
+Specific Pet Page - shows all the detailed information about a pet with the option to edit information. Option here to see \ vet records, vet appointment history, vaccination history, weight tracking, and any notes
+Edit Pet Page - here the user can update information as needed and submit
+Delete Pet Page - delete pet and all associated information/documents
+Add Pet Page - a new pet can be added
+Document Upload Page - here the user can upload their veterinary records and select which of their pets it is for. Additionally they can note the date of the vet appointment
 
 ### Mockups
 
@@ -56,11 +88,160 @@ Provide visuals of your app's screens. You can use pictures of hand-drawn sketch
 
 ### Data
 
-Describe your data and the relationships between the data points. You can show this visually using diagrams, or write it out.
+![](doguments_database_schema.png)
 
 ### Endpoints
 
-List endpoints that your server will implement, including HTTP methods, parameters, and example responses.
+GET /pets
+
+-   get a list of a user's added pets
+
+Response:
+
+```
+[
+    {
+        "id": 1,
+        "name": "Rover",
+        "image:" "
+        "dob:" "2020-12-29"
+        "sex:" "M",
+        "is_fixed:" true,
+        "type:" "canine",
+        "conditions:" "null",
+        "food:" "Purina Pro Plan Large Breed",
+        "meds:" "null",
+        "current_weight:" "40.2",
+        "is_microchipped:" true,
+        "micro_number:" "977200000000000",
+    },
+
+    {
+        "id": 2,
+        "name": "Cleo",
+        "image:" "
+        "dob:" "2015-11-19"
+        "sex:" "F",
+        "is_fixed:" true,
+        "type:" "feline",
+        "conditions:" "null",
+        "food:" "Meow Mix",
+        "meds:" "null",
+        "current_weight:" "8.9",
+        "is_microchipped:" true,
+        "micro_number:" "977300000000000",
+    },
+    ...
+]
+```
+
+GET /pets/:id
+
+-   get a profile of a specific pet
+
+Parameters:
+
+-   pet id number
+
+Response:
+
+```
+{
+    "id": 1,
+    "name": "Rover",
+    "image:" "
+    "dob:" "2020-12-29"
+    "sex:" "M",
+    "is_fixed:" true,
+    "type:" "canine",
+    "conditions:" "null",
+    "food:" "Purina Pro Plan Large Breed",
+    "meds:" "null",
+    "current_weight:" "40.2",
+    "is_microchipped:" true,
+    "micro_number:" "977200000000000",
+}
+```
+
+POST /pets
+
+-   add a new pet profile
+
+Parameters:
+
+-   the following data must be filled out:
+    -   name
+    -   dob - YYYY-MM-DD format
+    -   sex - M or F
+    -   is fixed - T or F
+    -   type
+    -   food
+    -   current weight - number up to 2 decimals in kg
+    -   is microchipped, optionally microchip number if yes
+
+Response:
+
+```
+{
+    "id": 1,
+    "name": "Buddy",
+    "image:" "
+    "dob:" "2024-01-31"
+    "sex:" "M",
+    "is_fixed:" false,
+    "type:" "canine",
+    "conditions:" "null",
+    "food:" "Purina Pro Plan Puppy",
+    "meds:" "null",
+    "current_weight:" "10.0",
+    "is_microchipped:" true,
+    "micro_number:" "977900000000000",
+}
+```
+
+PUT /pets/:id
+
+-   update a pet's profile
+
+Parameters:
+
+-   the following data must be filled out and changed from the original:
+    -   name
+    -   dob - YYYY-MM-DD format
+    -   sex - M or F
+    -   is fixed - T or F
+    -   type
+    -   food
+    -   current weight - number up to 2 decimals in kg
+    -   is microchipped, optionally microchip number if yes
+
+Response:
+
+```
+{
+    "id": 1,
+    "name": "Buddy",
+    "image:" "
+    "dob:" "2024-01-31"
+    "sex:" "M",
+    "is_fixed:" true,
+    "type:" "canine",
+    "conditions:" "null",
+    "food:" "Purina Pro Plan Puppy",
+    "meds:" "null",
+    "current_weight:" "10.0",
+    "is_microchipped:" true,
+    "micro_number:" "977900000000000",
+}
+```
+
+DELETE /pets/:id
+
+-   remove a pet's profile
+
+Parameters:
+
+-   pet id number
 
 ## Roadmap
 
@@ -70,4 +251,10 @@ Scope your project as a sprint. Break down the tasks that will need to be comple
 
 ## Future Implementations
 
-Your project will be marked based on what you committed to in the above document. Here, you can list any additional features you may complete after the MVP of your application is built, or if you have extra time before the Capstone due date.
+-   Ability for veterinary professionals to access and upload documents on clients' profiles
+-   Login and authentication details for clients to access personal list of their pets only
+-   Login and authentication details for veterinary staff to access list of their clients only
+-   Ability to switch between kg and lbs for pet weight
+-   Add a route to display trends in pet weight (add a visual such as a chart)
+-   Add a route to access pet's vaccination history (visual display as a calendar or chart)
+-   Mobile app
