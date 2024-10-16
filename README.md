@@ -15,7 +15,7 @@ In short, Doguments aims to:
 
 -   Reduce the demand for veterinary professionals by decreasing need to transfer documents.
 -   Allow the user easy access to their pets' documents in case of emergency.
--   Keep all a pet's crucial information in one spot (conditionas, medications, food etc.) to allow ease of access for both the user and veterinary professionals during intake, and keep track of any potentially concerning trends (change in food/water consumption, vomiting, changes in urination/defecation).
+-   Keep all a pet's crucial information in one spot (conditions, medications, food etc.) to allow ease of access for both the user and veterinary professionals during intake, and keep track of any potentially concerning trends (change in food/water consumption, vomiting, changes in urination/defecation).
 -   Simplify the user's scheduling and history by keeping a log of all veterinary visits and any upcoming scheduled visits.
 
 ### User Profile
@@ -84,7 +84,23 @@ Document Upload Page - here the user can upload their veterinary records and sel
 
 ### Mockups
 
-Provide visuals of your app's screens. You can use pictures of hand-drawn sketches, or wireframing tools like Figma.
+Home
+![](doguments_home.png)
+
+Pet List
+![](doguments_pet_list.png)
+
+Pet Page
+![](Doguments_pet.png)
+
+Edit/Add Pet
+![](Doguments_add.png)
+
+Delete Pet
+![](Doguments_delete.png)
+
+Documents/Upload
+![](Doguments_upload.png)
 
 ### Data
 
@@ -103,8 +119,8 @@ Response:
     {
         "id": 1,
         "name": "Rover",
-        "image:" "
-        "dob:" "2020-12-29"
+        "image:" "img pathway",
+        "dob:" "2020-12-29",
         "sex:" "M",
         "is_fixed:" true,
         "type:" "canine",
@@ -119,8 +135,8 @@ Response:
     {
         "id": 2,
         "name": "Cleo",
-        "image:" "
-        "dob:" "2015-11-19"
+        "image:" "img pathway",
+        "dob:" "2015-11-19",
         "sex:" "F",
         "is_fixed:" true,
         "type:" "feline",
@@ -149,8 +165,8 @@ Response:
 {
     "id": 1,
     "name": "Rover",
-    "image:" "
-    "dob:" "2020-12-29"
+    "image:" "img pathway",
+    "dob:" "2020-12-29",
     "sex:" "M",
     "is_fixed:" true,
     "type:" "canine",
@@ -185,8 +201,8 @@ Response:
 {
     "id": 1,
     "name": "Buddy",
-    "image:" "
-    "dob:" "2024-01-31"
+    "image:" "img pathway",
+    "dob:" "2024-01-31",
     "sex:" "M",
     "is_fixed:" false,
     "type:" "canine",
@@ -221,8 +237,8 @@ Response:
 {
     "id": 1,
     "name": "Buddy",
-    "image:" "
-    "dob:" "2024-01-31"
+    "image:" "img pathway",
+    "dob:" "2024-01-31",
     "sex:" "M",
     "is_fixed:" true,
     "type:" "canine",
@@ -243,9 +259,54 @@ Parameters:
 
 -   pet id number
 
+GET /pets/:id/records
+
+-   access a list of a pet's veterinary records and their dates
+
+POST /pets/:id/records
+
+-   upload a new record for a pet
+
+Parameters:
+
+-   pet id number
+-   pdf file
+
+```
+[
+    {
+        "id": 1,
+        "pet_id": 1,
+        "appt_date:" null,
+        "record_file:" "example.pdf",
+    },
+    ...
+]
+```
+
+Parameters:
+
+-   pet id number
+-   pdf file
+
+```
+{
+    "id": 1,
+    "pet_id": 1,
+    "appt_date:" null,
+    "record_file:" "example.pdf",
+}
+```
+
+DELETE /pets/:id/record/:recordid
+
+-   remove an existing file from the list of pet records
+
 ## Roadmap
 
 Scope your project as a sprint. Break down the tasks that will need to be completed and map out timeframes for implementation working back from the capstone due date.
+
+WIP
 
 ---
 
