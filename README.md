@@ -308,6 +308,64 @@ Scope your project as a sprint. Break down the tasks that will need to be comple
 
 WIP
 
+-   Set up the project environment:
+
+    -   Create a new Vite React project and install dependencies.
+
+-   Set up Express server and MySQL database.
+
+    -   Install necessary dependencies (React, Express, Knex, CORS, Multer, etc.).
+
+-   Create the initial folder structure:
+
+    -   client/ for React app.
+    -   server/ for Express API.
+
+-   Set up basic routing in React (react-router).
+
+-   Design the MySQL database schema:
+
+    -   Tables for pets, vaccinations, weights, vet records.
+
+-   Write migration files using Knex.
+
+-   Develop basic Express API endpoints:
+
+    -   GET /pets, POST /pets, GET /pets/:id, PUT /pets/:id, DELETE /pets/:id.
+    -   GET /pets/:id/records, POST /pets/:id/records.
+
+-   Create the Home Page, My Pets Page, Specific Pet Page.
+
+-   Use React components to display pet cards with basic details.
+
+-   Create Add Pet Page.
+
+-   Create a form for pet details.
+
+    -   Integrate form submission to API.
+    -   Use Multer for handling file uploads.
+
+-   Create the Specific Pet Page.
+
+    -   Display detailed information about a pet.
+    -   Integrate Edit Pet functionality with a form to update pet info.
+    -   Implement the Delete Pet functionality.
+        -   Add a delete button and handle confirmation.
+
+-   Create Records Page and Upload record functionality:
+
+    -   Use Multer for handling file uploads.
+    -   Create a form to upload veterinary records.
+
+-   Conduct thorough testing of all features:
+
+    -   Ensure all CRUD operations work correctly.
+    -   Test user interface responsiveness and usability.
+
+-   Add any finishing touches (styling, error handling).
+
+-   Prepare project for deployment (set up environment variables, configure production settings).
+
 ---
 
 ## Future Implementations
@@ -316,6 +374,7 @@ WIP
 -   Login and authentication details for clients to access personal list of their pets only
 -   Login and authentication details for veterinary staff to access list of their clients only
 -   Ability to switch between kg and lbs for pet weight
+-   Add ability to add specific notes for a pet - a written log
 -   Add a route to display trends in pet weight (add a visual such as a chart)
 -   Add a route to access pet's vaccination history (visual display as a calendar or chart)
 -   Mobile app
