@@ -304,10 +304,6 @@ DELETE /pets/:id/record/:recordid
 
 ## Roadmap
 
-Scope your project as a sprint. Break down the tasks that will need to be completed and map out timeframes for implementation working back from the capstone due date.
-
-WIP
-
 -   Set up the project environment:
 
     -   Create a new Vite React project and install dependencies.
