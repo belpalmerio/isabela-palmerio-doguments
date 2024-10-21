@@ -8,7 +8,7 @@ export function up(knex) {
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.string('name').notNullable();
-      table.blob('image').nullable();
+      table.binary('image').nullable();
       table.date('dob').notNullable();
       table.enu('sex', ['male', 'female']).notNullable();
       table.boolean('is_fixed').notNullable();

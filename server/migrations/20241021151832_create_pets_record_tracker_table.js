@@ -7,7 +7,7 @@ export function up(knex) {
         .references('id').inTable('pets')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-      table.blob('record_file').notNullable();
+      table.binary('record_file').notNullable();
       table.date('appt_date').nullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')); 
@@ -17,4 +17,3 @@ export function up(knex) {
   export function down(knex) {
     return knex.schema.dropTable('pet_record_tracker');
   }
-  
