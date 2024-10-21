@@ -19,7 +19,7 @@ export function up(knex) {
       table.string('meds').nullable();
       table.decimal('current_weight').notNullable();
       table.boolean('is_microchipped').notNullable();
-      table.bigint('micro_number').nullable();
+      table.string('micro_number').nullable();
       
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
