@@ -3,14 +3,39 @@ import configuration from "../knexfile.js";
 
 const knex = initKnex(configuration);
 
-// Validation Functions
+// validation functions
 const validateUserData = (data) => {
-  const { firstName, lastName, type, username, password, email } = data;
-  if (!firstName || !lastName || !type || !username || !password || !email) {
+  const { firstName, lastName, userType, userName, password, email } = data;
+  if (
+    !firstName ||
+    !lastName ||
+    !userType ||
+    !userName ||
+    !password ||
+    !email
+  ) {
     return { valid: false, message: `All fields are required` };
   }
 
   return { valid: true };
+};
+
+// check for existing email and username
+const emailExists = async (email, userId = null) => {
+  const query = knex("users").where({ email });
+  if (userId) {
+    query.andWhere("id", "!=", userId);
+  }
+  return await query.first();
+};
+
+// Check if username already exists
+const usernameExists = async (username, userId = null) => {
+  const query = knex("users").where({ username });
+  if (userId) {
+    query.andWhere("id", "!=", userId);
+  }
+  return await query.first();
 };
 
 const validateEmail = (email) => {
@@ -63,30 +88,37 @@ const create = async (req, res) => {
     return res.status(400).json({ message: emailValidation.message });
   }
 
-  const { firstName, lastName, type, username, password } = req.body;
+  const { firstName, lastName, userType, userName, password } = req.body;
 
   try {
-    const [userData] = await knex("users")
-      .insert({
-        first_name: firstName,
-        last_name: lastName,
-        type,
-        username,
-        password_hash: password, // placeholder
-        email,
-      })
-      .returning("*");
+    if (await emailExists(email)) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
 
-    const {
-      id,
-      first_name,
-      last_name,
-      type,
-      username: userUsername,
-    } = userData;
-    return res
-      .status(201)
-      .json({ id, first_name, last_name, type, userUsername, email });
+    if (await usernameExists(userName)) {
+      return res.status(400).json({ message: "Username already in use" });
+    }
+
+    const result = await knex("users").insert({
+      first_name: firstName,
+      last_name: lastName,
+      type: userType,
+      username: userName,
+      password_hash: password, // placeholder
+      email,
+    });
+
+    const userData = await knex("users")
+      .where({ id: result[0].insertId })
+      .first();
+    return res.status(201).json({
+      id: userData.id,
+      first_name: userData.first_name,
+      last_name: userData.last_name,
+      type: userData.type,
+      username: userData.username,
+      email: userData.email,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -101,22 +133,39 @@ const edit = async (req, res) => {
     return res.status(400).json({ message: validation.message });
   }
 
-  const { email } = req.body;
+  const { email, username } = req.body;
   const emailValidation = validateEmail(email);
   if (email && !emailValidation.valid) {
     return res.status(400).json({ message: emailValidation.message });
   }
 
-  const { firstName, lastName, type, username, password } = req.body;
+  const { firstName, lastName, userType, userName, password } = req.body;
 
   try {
+    const currentUser = await knex("users")
+      .where({ id: req.params.id })
+      .first();
+    if (!currentUser) {
+      return res
+        .status(404)
+        .json({ message: `User with ID ${req.params.id} not found` });
+    }
+
+    if (await emailExists(email, currentUser.id)) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    if (await usernameExists(username, currentUser.id)) {
+      return res.status(400).json({ message: "Username already in use" });
+    }
+
     const updatedData = await knex("users")
       .where({ id: req.params.id })
       .update({
         first_name: firstName,
         last_name: lastName,
-        type,
-        username,
+        type: userType,
+        username: userName,
         password_hash: password, // placeholder
         email,
       });
