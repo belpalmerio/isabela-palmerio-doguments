@@ -85,26 +85,26 @@ Document Upload Page - here the user can upload their veterinary records and sel
 ### Mockups
 
 Home
-![](doguments_home.png)
+![](mockups/doguments_home.png)
 
 Pet List
-![](doguments_pet_list.png)
+![](mockups/doguments_pet_list.png)
 
 Pet Page
-![](Doguments_pet.png)
+![](mockups/Doguments_pet.png)
 
 Edit/Add Pet
-![](Doguments_add.png)
+![](mockups/Doguments_add.png)
 
 Delete Pet
-![](Doguments_delete.png)
+![](mockups/Doguments_delete.png)
 
 Documents/Upload
-![](Doguments_upload.png)
+![](mockups/Doguments_upload.png)
 
 ### Data
 
-![](doguments_database_schema.png)
+![](mockups/doguments_database_schema.png)
 
 ### Endpoints
 
