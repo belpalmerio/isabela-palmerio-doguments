@@ -3,7 +3,7 @@ export default [
       id: 1,
       user_id: 1,
       name: "Winnifrid",
-      dob: 2020-0o3-0o3,
+      dob: "2020-03-03",
       sex: "female",
       is_fixed: true,
       type: "Canine",
