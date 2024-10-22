@@ -8,7 +8,7 @@ import MyPetListPage from "./pages/MyPetListPage/MyPetListPage";
 // import RecordPage from "./pages/RecordPage/RecordPage";
 // import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 // import Header from "./components/Header/Header";
-// import "./styles/partials/_global.scss";
+import "./styles/partials/_global.scss";
 
 function App() {
   return (
