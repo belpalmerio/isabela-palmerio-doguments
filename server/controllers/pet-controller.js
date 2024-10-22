@@ -15,7 +15,7 @@ const validatePetData = (data) => {
     !currentWeight ||
     !isMicrochipped
   ) {
-    return { valid: false, message: `All fields are required` };
+    return { valid: false, message: `These fields are required` };
   }
 
   if (typeof currentWeight !== "number" || currentWeight <= 0) {
