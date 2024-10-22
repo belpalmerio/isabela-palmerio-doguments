@@ -1,9 +1,9 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
+import multer from "multer";
 import * as recordController from "../controllers/record-controller.js";
 import express from "express";
-import multer from "multer";
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

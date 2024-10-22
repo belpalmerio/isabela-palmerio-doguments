@@ -4,9 +4,8 @@ import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
 
 // validation functions
-const validateRecordData = (data) => {
-  const { recordFile } = data;
-  if (!recordFile) {
+const validateRecordData = (file) => {
+  if (!file) {
     return { valid: false, message: `File is required` };
   }
 
@@ -21,7 +20,7 @@ const findOne = async (req, res) => {
 
     if (!recordData) {
       return res.status(404).json({
-        message: `record with ID ${req.params.id} not found`,
+        message: `Record with ID ${req.params.id} not found`,
       });
     }
 
@@ -47,13 +46,13 @@ const findAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const validation = validateRecordData(req.body);
+  const validation = validateRecordData(req.file);
   if (!validation.valid) {
     return res.status(400).json({ message: validation.message });
   }
 
   const { apptDate, petId } = req.body;
-  const { recordFile } = req.file;
+  const recordFile = req.file.buffer;
 
   const petExists = await knex("pets").where({ id: petId }).first();
   if (!petExists) {
@@ -82,13 +81,13 @@ const create = async (req, res) => {
 };
 
 const edit = async (req, res) => {
-  const validation = validateRecordData(req.body);
+  const validation = validateRecordData(req.file);
   if (!validation.valid) {
     return res.status(400).json({ message: validation.message });
   }
 
   const { apptDate, petId } = req.body;
-  const { recordFile } = req.file;
+  const recordFile = req.file.buffer;
 
   try {
     const currentRecord = await knex("pet_record_tracker")

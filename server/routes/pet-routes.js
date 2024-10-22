@@ -1,6 +1,7 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
+import multer from "multer";
 import * as petController from "../controllers/pet-controller.js";
 import express from "express";
 const router = express.Router();
