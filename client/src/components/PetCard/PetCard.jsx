@@ -1,4 +1,5 @@
 import "./PetCard.scss";
+import formatDate from "../../utils/formatDate";
 import { Link } from "react-router-dom";
 
 function PetCard({ pets }) {
@@ -24,6 +25,9 @@ function PetCard({ pets }) {
                       {pet.name}
                     </p>
                     <p className="my-pet__body">{pet.type}</p>
+                    <p className="my-pet__body">DOB: {formatDate(pet.dob)}</p>
+                    <p className="my-pet__body">{pet.sex}</p>
+                    <p className="my-pet__body">{pet.is_fixed}</p>
                   </div>
                 </button>
               </Link>
