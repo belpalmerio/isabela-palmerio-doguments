@@ -20,7 +20,7 @@ const validateUserData = (data) => {
   return { valid: true };
 };
 
-// check for existing email and username
+// check for existing email
 const emailExists = async (email, userId = null) => {
   const query = knex("users").where({ email });
   if (userId) {
@@ -29,7 +29,7 @@ const emailExists = async (email, userId = null) => {
   return await query.first();
 };
 
-// Check if username already exists
+// check if username already exists
 const usernameExists = async (username, userId = null) => {
   const query = knex("users").where({ username });
   if (userId) {
@@ -108,16 +108,9 @@ const create = async (req, res) => {
       email,
     });
 
-    const userData = await knex("users")
-      .where({ id: result[0].insertId })
-      .first();
+    const userData = await knex("users").where({ id: result[0] }).first();
     return res.status(201).json({
-      id: userData.id,
-      first_name: userData.first_name,
-      last_name: userData.last_name,
-      type: userData.type,
-      username: userData.username,
-      email: userData.email,
+      userData,
     });
   } catch (error) {
     console.error(error);
@@ -133,13 +126,12 @@ const edit = async (req, res) => {
     return res.status(400).json({ message: validation.message });
   }
 
-  const { email, username } = req.body;
+  const { firstName, lastName, userType, userName, password, email } = req.body;
+
   const emailValidation = validateEmail(email);
   if (email && !emailValidation.valid) {
     return res.status(400).json({ message: emailValidation.message });
   }
-
-  const { firstName, lastName, userType, userName, password } = req.body;
 
   try {
     const currentUser = await knex("users")
@@ -155,7 +147,7 @@ const edit = async (req, res) => {
       return res.status(400).json({ message: "Email already in use" });
     }
 
-    if (await usernameExists(username, currentUser.id)) {
+    if (await usernameExists(userName, currentUser.id)) {
       return res.status(400).json({ message: "Username already in use" });
     }
 

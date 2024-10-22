@@ -1,16 +1,16 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
+import * as petController from "../controllers/pet-controller.js";
 import express from "express";
 const router = express.Router();
 
-router.get("/", async (_req, res) => {
-  try {
-    const data = await knex("pets");
-    res.status(200).json(data);
-  } catch (err) {
-    res.status(400).send(`Error retrieving Pets: ${err}`);
-  }
-});
+router
+  .route("/:id")
+  .get(petController.findOne)
+  .put(petController.edit)
+  .delete(petController.remove);
+
+router.route("/").get(petController.findAll).post(petController.create);
 
 export default router;
