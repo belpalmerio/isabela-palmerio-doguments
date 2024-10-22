@@ -67,7 +67,6 @@ const create = async (req, res) => {
 
   const {
     name,
-    image,
     dob,
     sex,
     isFixed,
@@ -81,6 +80,7 @@ const create = async (req, res) => {
     microNumber,
     userId,
   } = req.body;
+  const { image } = req.file.buffer;
 
   const userExists = await knex("users").where({ id: userId }).first();
   if (!userExists) {
@@ -123,7 +123,6 @@ const edit = async (req, res) => {
 
   const {
     name,
-    image,
     dob,
     sex,
     isFixed,
@@ -137,6 +136,7 @@ const edit = async (req, res) => {
     microNumber,
     userId,
   } = req.body;
+  const { image } = req.file.buffer;
 
   try {
     const currentPet = await knex("pets").where({ id: req.params.id }).first();

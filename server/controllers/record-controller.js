@@ -52,7 +52,8 @@ const create = async (req, res) => {
     return res.status(400).json({ message: validation.message });
   }
 
-  const { apptDate, recordFile, petId } = req.body;
+  const { apptDate, petId } = req.body;
+  const { recordFile } = req.file;
 
   const petExists = await knex("pets").where({ id: petId }).first();
   if (!petExists) {
@@ -86,7 +87,8 @@ const edit = async (req, res) => {
     return res.status(400).json({ message: validation.message });
   }
 
-  const { apptDate, recordFile, petId } = req.body;
+  const { apptDate, petId } = req.body;
+  const { recordFile } = req.file;
 
   try {
     const currentRecord = await knex("pet_record_tracker")
