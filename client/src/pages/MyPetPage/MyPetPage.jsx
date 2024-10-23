@@ -62,7 +62,9 @@ function MyPetPage() {
         </div>
         <p className="my-pet__body">{pet.type}</p>
         <p className="my-pet__body">{pet.breed}</p>
-        {/* <p className="my-pet__body">DOB: {formatDate(pet.dob)}</p> */}
+        <p className="my-pet__body">
+          DOB: {pet.dob ? formatDate(pet.dob) : ""}
+        </p>
         <p className="my-pet__body">{petAge(pet.dob)}</p>
         <p className="my-pet__body">{formatFixed(pet)}</p>
         <p className="my-pet__body">{pet.current_weight} kg</p>
