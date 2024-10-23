@@ -1,5 +1,4 @@
 import "./MyPetPage.scss";
-import PetCard from "../../components/PetCard/PetCard";
 import formatDate from "../../utils/formatDate";
 import petAge from "../../utils/petAge";
 import formatFixed from "../../utils/formatFixed";
@@ -12,7 +11,22 @@ import deleteicon from "../../assets/icons/deleteicon.svg";
 
 function MyPetPage() {
   const { userId, petId } = useParams();
-  const [pet, setPet] = useState([]);
+  const [pet, setPet] = useState({
+    id: "",
+    name: "",
+    image: "",
+    dob: "",
+    sex: "",
+    isFixed: "",
+    type: "",
+    breed: "",
+    conditions: "",
+    food: "",
+    meds: "",
+    currentWeight: "",
+    isMicrochipped: "",
+    microNumber: "",
+  });
 
   //set document title
   useEffect(() => {
@@ -26,7 +40,22 @@ function MyPetPage() {
       try {
         const response = await axios.get(url);
         console.log(response.data);
-        setPet(response.data);
+        const data = response.data;
+        setPet({
+          name: data.name,
+          image: data.image,
+          dob: data.dob,
+          sex: data.sex,
+          isFixed: data.is_fixed,
+          type: data.type,
+          breed: data.breed,
+          conditions: data.conditions,
+          food: data.food,
+          meds: data.meds,
+          currentWeight: data.current_weight,
+          isMicrochipped: data.is_microchipped,
+          microNumber: data.micro_number,
+        });
       } catch (error) {
         console.log("Error fetching specific pet data", error);
       }
@@ -67,7 +96,7 @@ function MyPetPage() {
         </p>
         <p className="my-pet__body">{petAge(pet.dob)}</p>
         <p className="my-pet__body">{formatFixed(pet)}</p>
-        <p className="my-pet__body">{pet.current_weight} kg</p>
+        <p className="my-pet__body">{pet.currentWeight} kg</p>
         <p className="my-pet__body">Food: {pet.food}</p>
         {pet.conditions && (
           <p className="my-pet__body">Conditions: {pet.conditions}</p>
@@ -75,14 +104,14 @@ function MyPetPage() {
 
         {pet.meds && <p className="my-pet__body">Medications: {pet.meds}</p>}
         <p className="my-pet__body">
-          Microchipped: {pet.is_microchipped ? "✅" : "❌"}
+          Microchipped: {pet.isMicrochipped ? "✅" : "❌"}
         </p>
-        {pet.is_microchipped && pet.micro_number && (
-          <p className="my-pet__body">Microchip Number: {pet.micro_number}</p>
+        {pet.isMicrochipped && pet.microNumber && (
+          <p className="my-pet__body">Microchip Number: {pet.microNumber}</p>
         )}
       </div>
 
-      <div className="edit-pet">
+      <div className="edit-pet-icon">
         <Link to={`/pets/${petId}/edit`}>
           <button className="edit-pet">
             <img src={editicon} className="edit-icon" alt="Edit pet" />
@@ -90,7 +119,7 @@ function MyPetPage() {
         </Link>
       </div>
 
-      <div className="delete-pet">
+      <div className="delete-pet-icon">
         <img src={deleteicon} className="delete-icon" alt="Delete pet" />
       </div>
     </article>

@@ -1,9 +1,9 @@
 const formatFixed = (pet) => {
-  const { sex, is_fixed } = pet;
+  const { sex, isFixed } = pet;
 
-  if (is_fixed === 1 && sex === "female") {
+  if (isFixed === 1 && sex === "female") {
     return "Spayed";
-  } else if (is_fixed === 1 && sex === "male") {
+  } else if (isFixed === 1 && sex === "male") {
     return "Neutered";
   }
 
