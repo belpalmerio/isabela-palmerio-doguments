@@ -18,29 +18,33 @@ function PetCard({ pets }) {
             <li className="my-pets__list-item" key={pet.id}>
               <Link to={`/pets/${pet.id}`}>
                 <button
-                  className="my-pet__button"
+                  className="my-pets__button"
                   onClick={() => handleToTop()}
                 >
-                  <img src={pet.image} alt={pet.name} className="my-pet__img" />
-                  <div className="my-pet__info">
-                    <p className="my-pet__body my-pet__body--title">
+                  <img
+                    src={pet.image}
+                    alt={pet.name}
+                    className="my-pets__img"
+                  />
+                  <div className="my-pets__info">
+                    <p className="my-pets__body my-pets__body--title">
                       {pet.name}
                     </p>
-                    <p className="my-pet__body">{pet.type}</p>
-                    <p className="my-pet__body">DOB: {formatDate(pet.dob)}</p>
-                    <p className="my-pet__body">{petAge(pet.dob)}</p>
+                    <p className="my-pets__body">{pet.type}</p>
+                    <p className="my-pets__body">DOB: {formatDate(pet.dob)}</p>
+                    <p className="my-pets__body">{petAge(pet.dob)}</p>
                     <p
-                      className={`my-pet__body ${
+                      className={`my-pets__body ${
                         pet.sex === "male"
-                          ? "my-pet__body--male"
+                          ? "my-pets__body--male"
                           : pet.sex === "female"
-                          ? "my-pet__body--female"
+                          ? "my-pets__body--female"
                           : ""
                       }`}
                     >
                       {pet.sex}
                     </p>
-                    <p className="my-pet__body">{formatFixed(pet)}</p>
+                    <p className="my-pets__body">{formatFixed(pet)}</p>
                   </div>
                 </button>
               </Link>

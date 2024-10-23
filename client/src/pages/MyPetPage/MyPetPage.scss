@@ -1,6 +1,6 @@
 @use "../../styles/partials/mixins" as *;
 
-.my-pets {
+.my-pet {
   &__body {
     &--male {
       background-image: url("../../assets/icons/male.svg");
