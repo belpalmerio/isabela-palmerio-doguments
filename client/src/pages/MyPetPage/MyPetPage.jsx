@@ -7,6 +7,8 @@ import { baseUrl } from "../../utils/api.js";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import editicon from "../../assets/icons/editicon.svg";
+import deleteicon from "../../assets/icons/deleteicon.svg";
 
 function MyPetPage() {
   const { userId, petId } = useParams();
@@ -76,6 +78,18 @@ function MyPetPage() {
         {pet.is_microchipped && pet.micro_number && (
           <p className="my-pet__body">Microchip Number: {pet.micro_number}</p>
         )}
+      </div>
+
+      <div className="edit-pet">
+        <Link to={`/pets/${petId}/edit`}>
+          <button className="edit-pet">
+            <img src={editicon} className="edit-icon" alt="Edit pet" />
+          </button>
+        </Link>
+      </div>
+
+      <div className="delete-pet">
+        <img src={deleteicon} className="delete-icon" alt="Delete pet" />
       </div>
     </article>
   );
