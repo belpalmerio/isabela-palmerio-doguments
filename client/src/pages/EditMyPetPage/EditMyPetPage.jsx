@@ -1,7 +1,7 @@
 import "./EditMyPetPage.scss";
 import formatDate from "../../utils/formatDate";
 import petAge from "../../utils/petAge";
-import formatFixed from "../../utils/formatFixed";
+import displaySpayOrNeuter from "../../utils/displaySpayOrNeuter";
 import {
   types,
   dogBreeds,
@@ -15,9 +15,10 @@ import {
   rabbitBreeds,
   breedOptions,
 } from "../../utils/formTypes";
+import requiredFields from "../../utils/requiredFields";
 import { baseUrl } from "../../utils/api.js";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import deleteicon from "../../assets/icons/deleteicon.svg";
 
@@ -73,7 +74,7 @@ function EditMyPetPage() {
           image: data.image,
           dob: data.dob,
           sex: data.sex,
-          isFixed: data.is_fixed,
+          isFixed: data.is_fixed === 1,
           type: data.type,
           breed: data.breed,
           conditions: data.conditions,
@@ -92,6 +93,84 @@ function EditMyPetPage() {
     getPetFormData();
   }, [petId]);
 
+  let navigate = useNavigate();
+
+  function handleTyping(text) {
+    return (e) => {
+      setFormInput({ ...formInput, [text]: e.target.value });
+    };
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    const newErrors = {};
+    let isValid = true;
+
+    requiredFields.forEach((field) => {
+      if (!formInput[field]?.trim()) {
+        newErrors[field] = "This field is required";
+        isValid = false;
+      }
+    });
+
+    if (
+      typeof formInput.currentWeight !== "number" ||
+      formInput.currentWeight <= 0
+    ) {
+      newErrors[currentWeight] = "Weight must be a positive number";
+      isValid = false;
+    }
+
+    if (formInput.type === "Select Type") {
+      newErrors[type] = "Please select an animal type";
+      isValid = false;
+    }
+
+    if (formInput.breed === "Select Breed") {
+      formInput.breed = null;
+    }
+
+    setError(newErrors);
+
+    if (isValid) {
+      try {
+        const response = await axios.put(`${baseUrl}pets/${petId}`, formInput);
+
+        setFormInput({
+          id: "",
+          name: "",
+          image: "",
+          dob: "",
+          sex: "",
+          isFixed: "",
+          type: "",
+          breed: "",
+          conditions: "",
+          food: "",
+          meds: "",
+          currentWeight: "",
+          isMicrochipped: "",
+          microNumber: "",
+        });
+
+        setRedirect(true);
+      } catch (error) {
+        console.log("Error editing pet:", error);
+      }
+    } else {
+      console.log("Validation error", newErrors);
+    }
+  }
+
+  useEffect(() => {
+    if (redirect) {
+      setTimeout(() => {
+        navigate(`/pets/${petId}`);
+      }, 2500);
+    }
+  }, [redirect, navigate]);
+
   return (
     <article className="edit-pet">
       <div className="records">Veterinary Records</div>
@@ -99,7 +178,12 @@ function EditMyPetPage() {
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>
       <form action="" className="edit-pet__form">
-        <input type="text" value={formInput.name} className="edit-pet__title" />
+        <input
+          type="text"
+          value={formInput.name}
+          className="edit-pet__title"
+          onChange={handleTyping("name")}
+        />
         <img
           src={formInput.image}
           alt={formInput.name}
@@ -131,7 +215,31 @@ function EditMyPetPage() {
                 />
                 Female
               </label>
-              <p className="edit-pet__body">{formatFixed(formInput)}</p>
+              <label className="edit-pet__body">
+                {displaySpayOrNeuter(formInput)}:
+                <label className="edit-pet__body edit-pet__body--yes">
+                  <input
+                    type="radio"
+                    value="true"
+                    checked={formInput.isFixed === true}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, isFixed: true })
+                    }
+                  />
+                  IsMicro
+                </label>
+                <label className="edit-pet__body edit-pet__body--no">
+                  <input
+                    type="radio"
+                    value="false"
+                    checked={formInput.isFixed === false}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, isFixed: false })
+                    }
+                  />
+                  IsntMicro
+                </label>
+              </label>
             </div>
           </div>
           <label className="edit-pet__body">
@@ -178,6 +286,7 @@ function EditMyPetPage() {
               type="date"
               value={formInput.dob ? formatDate(formInput.dob) : ""}
               className="edit-pet__body"
+              onChange={handleTyping("dob")}
             />
           </label>
           <label htmlFor="" className="edit-pet__label">
@@ -186,6 +295,7 @@ function EditMyPetPage() {
               type="text"
               value={formInput.currentWeight}
               className="edit-pet__body"
+              onChange={handleTyping("currentWeight")}
             />
             kg
           </label>
@@ -195,6 +305,7 @@ function EditMyPetPage() {
               type="text"
               value={formInput.food}
               className="edit-pet__body"
+              onChange={handleTyping("food")}
             />
           </label>
           <label htmlFor="" className="edit-pet__label">
@@ -204,6 +315,7 @@ function EditMyPetPage() {
               value={formInput.conditions}
               className="edit-pet__body"
               placeholder="Any medical conditions your pet has"
+              onChange={handleTyping("conditions")}
             />
           </label>
           <label htmlFor="" className="edit-pet__label">
@@ -213,10 +325,11 @@ function EditMyPetPage() {
               value={formInput.meds}
               className="edit-pet__body"
               placeholder="Any medications your pet is taking"
+              onChange={handleTyping("medications")}
             />
           </label>
           <label className="edit-pet__body">
-            Microchipped?
+            Microchipped:
             <label className="edit-pet__body edit-pet__body--yes">
               <input
                 type="radio"
@@ -248,6 +361,7 @@ function EditMyPetPage() {
                 value={formInput.microNumber}
                 className="edit-pet__body"
                 placeholder="Your pet's microchip number"
+                onChange={handleTyping("microNumber")}
               />
             </label>
           )}
