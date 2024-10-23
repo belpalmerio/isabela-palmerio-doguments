@@ -1,0 +1,17 @@
+@use "../../styles/partials/mixins" as *;
+
+.my-pet {
+  &__body {
+    &--male {
+      background-image: url("../../assets/icons/male.svg");
+      @include icon;
+      color: transparent;
+    }
+
+    &--female {
+      background-image: url("../../assets/icons/female.svg");
+      @include icon;
+      color: transparent;
+    }
+  }
+}

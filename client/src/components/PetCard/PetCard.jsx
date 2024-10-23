@@ -1,6 +1,7 @@
 import "./PetCard.scss";
 import formatDate from "../../utils/formatDate";
 import petAge from "../../utils/petAge";
+import formatFixed from "../../utils/formatFixed";
 import { Link } from "react-router-dom";
 
 function PetCard({ pets }) {
@@ -28,8 +29,18 @@ function PetCard({ pets }) {
                     <p className="my-pet__body">{pet.type}</p>
                     <p className="my-pet__body">DOB: {formatDate(pet.dob)}</p>
                     <p className="my-pet__body">{petAge(pet.dob)}</p>
-                    <p className="my-pet__body">{pet.sex}</p>
-                    <p className="my-pet__body">{pet.is_fixed}</p>
+                    <p
+                      className={`my-pet__body ${
+                        pet.sex === "male"
+                          ? "my-pet__body--male"
+                          : pet.sex === "female"
+                          ? "my-pet__body--female"
+                          : ""
+                      }`}
+                    >
+                      {pet.sex}
+                    </p>
+                    <p className="my-pet__body">{formatFixed(pet)}</p>
                   </div>
                 </button>
               </Link>
