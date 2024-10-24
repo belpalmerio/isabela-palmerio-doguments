@@ -15,7 +15,7 @@ import {
   rabbitBreeds,
   breedOptions,
 } from "../../utils/formTypes";
-import requiredFields from "../../utils/requiredFields";
+import { requiredFields, requiredBooleans } from "../../utils/requiredFields";
 import { baseUrl } from "../../utils/api.js";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -25,6 +25,8 @@ import deleteicon from "../../assets/icons/deleteicon.svg";
 function EditMyPetPage() {
   const { userId, petId } = useParams();
   const [redirect, setRedirect] = useState(false);
+  const [originalDob, setOriginalDob] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
   const [error, setError] = useState({
     id: "",
     name: "",
@@ -84,7 +86,7 @@ function EditMyPetPage() {
           isMicrochipped: data.is_microchipped === 1,
           microNumber: data.micro_number,
         });
-        console.log("Micro?:", data.is_microchipped);
+        setOriginalDob(data.dob);
       } catch (error) {
         console.log("Error fetching specific pet data", error);
       }
@@ -101,6 +103,21 @@ function EditMyPetPage() {
     };
   }
 
+  const handleWeightInput = (e) => {
+    const value = e.target.value;
+    if (/^\d+(\.\d{0,2})?$/.test(value) || value === "") {
+      setFormInput({ ...formInput, currentWeight: value });
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setFormInput({ ...formInput, image: URL.createObjectURL(file) });
+    }
+  };
+
   async function handleFormSubmit(e) {
     e.preventDefault();
 
@@ -114,16 +131,15 @@ function EditMyPetPage() {
       }
     });
 
-    if (
-      typeof formInput.currentWeight !== "number" ||
-      formInput.currentWeight <= 0
-    ) {
-      newErrors[currentWeight] = "Weight must be a positive number";
-      isValid = false;
-    }
+    requiredBooleans.forEach((boolean) => {
+      if (formInput[boolean] === null || formInput[boolean] === undefined) {
+        newErrors[boolean] = "This field is required";
+        isValid = false;
+      }
+    });
 
     if (formInput.type === "Select Type") {
-      newErrors[type] = "Please select an animal type";
+      newErrors[formInput.type] = "Please select an animal type";
       isValid = false;
     }
 
@@ -135,7 +151,30 @@ function EditMyPetPage() {
 
     if (isValid) {
       try {
-        const response = await axios.put(`${baseUrl}pets/${petId}`, formInput);
+        const formData = new FormData();
+        formData.append("name", formInput.name);
+        formData.append("image", selectedImage);
+        formData.append(
+          "dob",
+          formInput.dob ? formatDate(formInput.dob) : originalDob
+        );
+        formData.append("sex", formInput.sex);
+        formData.append("isFixed", formInput.isFixed ? 1 : 0);
+        formData.append("type", formInput.type);
+        formData.append("breed", formInput.breed);
+        formData.append("conditions", formInput.conditions || null);
+        formData.append("food", formInput.food || null);
+        formData.append("meds", formInput.meds || null);
+        formData.append("currentWeight", parseFloat(formInput.currentWeight));
+        formData.append("isMicrochipped", formInput.isMicrochipped ? 1 : 0);
+        formData.append("microNumber", formInput.microNumber || null);
+        console.log("Form data being sent:", formData);
+
+        const response = await axios.put(`${baseUrl}pets/${petId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         setFormInput({
           id: "",
@@ -177,18 +216,33 @@ function EditMyPetPage() {
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>
-      <form action="" className="edit-pet__form">
+      <form
+        action="/pets"
+        className="edit-pet__form"
+        encType="multipart/form-data"
+        onSubmit={handleFormSubmit}
+      >
         <input
           type="text"
           value={formInput.name}
           className="edit-pet__title"
           onChange={handleTyping("name")}
         />
+        <label className="edit-pet__label">
+          Upload Image:
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="edit-pet__body"
+          />
+        </label>
         <img
-          src={formInput.image}
-          alt={formInput.name}
+          src={formInput.image || selectedImage ? formInput.image : ""}
+          alt={formInput.name || "Pet Image"}
           className="edit-pet__img"
         />
+
         <div className="edit-pet__info">
           <div className="edit-pet__container">
             <label className="edit-pet__body">Sex:</label>
@@ -295,7 +349,7 @@ function EditMyPetPage() {
               type="text"
               value={formInput.currentWeight}
               className="edit-pet__body"
-              onChange={handleTyping("currentWeight")}
+              onChange={handleWeightInput}
             />
             kg
           </label>
@@ -367,7 +421,9 @@ function EditMyPetPage() {
           )}
         </div>
 
-        <button className="button">Update</button>
+        <button className="button" type="submit">
+          Update
+        </button>
       </form>
 
       <div className="delete-pet">

@@ -1,11 +1,5 @@
-const requiredFields = [
-  "name",
-  "dob",
-  "sex",
-  "isFixed",
-  "type",
-  "currentWeight",
-  "isMicrochipped",
-];
+const requiredFields = ["name", "dob", "sex", "type", "currentWeight"];
 
-export default requiredFields;
+const requiredBooleans = ["isFixed", "isMicrochipped"];
+
+export { requiredFields, requiredBooleans };

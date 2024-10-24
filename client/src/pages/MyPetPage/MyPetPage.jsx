@@ -2,7 +2,7 @@ import "./MyPetPage.scss";
 import formatDate from "../../utils/formatDate";
 import petAge from "../../utils/petAge";
 import formatFixed from "../../utils/formatFixed";
-import { baseUrl } from "../../utils/api.js";
+import { baseUrl, port } from "../../utils/api.js";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
@@ -56,6 +56,7 @@ function MyPetPage() {
           isMicrochipped: data.is_microchipped,
           microNumber: data.micro_number,
         });
+        console.log(data.image);
       } catch (error) {
         console.log("Error fetching specific pet data", error);
       }
@@ -66,6 +67,8 @@ function MyPetPage() {
     getSpecificPet();
   }, [petId]);
 
+  console.log(pet.image);
+
   return (
     <article className="my-pet">
       <div className="records">Veterinary Records</div>
@@ -73,7 +76,11 @@ function MyPetPage() {
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>
       <h1 className="my-pet__title">{pet.name}</h1>
-      <img src={pet.image} alt={pet.name} className="my-pet__img" />
+      <img
+        src={`http://localhost:${port}/pet_uploads/${pet.image}`}
+        alt={pet.name}
+        className="my-pet__img"
+      />
       <div className="my-pet__info">
         <p className="my-pet__body my-pet__body--title">{pet.name}</p>
         <div className="my-pet__container">
