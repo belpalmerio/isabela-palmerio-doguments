@@ -1,7 +1,7 @@
 import "./MyPetListPage.scss";
 import PetCard from "../../components/PetCard/PetCard";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../utils/api.js";
 
@@ -33,6 +33,9 @@ function MyPetListPage() {
   return (
     <div className="container">
       <PetCard pets={pets} />
+      <Link to={"/pets/add"}>
+        <button className="add-button">Add Pet</button>
+      </Link>
     </div>
   );
 }

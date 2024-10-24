@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import deleteicon from "../../assets/icons/deleteicon.svg";
+import backicon from "../../assets/icons/backicon.svg";
 
 function AddMyPetPage() {
   const { userId } = useParams();
@@ -172,7 +173,7 @@ function AddMyPetPage() {
 
         setRedirect(true);
       } catch (error) {
-        console.log("Error editing pet:", error);
+        console.log("Error adding pet:", error);
       }
     } else {
       console.log("Validation error", newErrors);
@@ -188,34 +189,45 @@ function AddMyPetPage() {
   }, [redirect, navigate]);
 
   return (
-    <article className="edit-pet">
+    <article className="add-pet">
       <div className="records">Veterinary Records</div>
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>
+      <div className="back">
+        <Link to={`/pets/`}>
+          <button className="back-icon__button">
+            <img
+              src={backicon}
+              className="back-icon__img"
+              alt="Back to Pet List"
+            />
+          </button>
+        </Link>
+      </div>
       <form
         action="/pets"
-        className="edit-pet__form"
+        className="add-pet__form"
         encType="multipart/form-data"
         onSubmit={handleFormSubmit}
       >
-        <label className="edit-pet__label">
+        <label className="add-pet__label">
           Name:
           <input
             type="text"
             value={formInput.name}
-            className="edit-pet__title"
+            className="add-pet__title"
             placeholder="Your pet's name"
             onChange={handleTyping("name")}
           />
         </label>
-        <label className="edit-pet__label">
+        <label className="add-pet__label">
           Upload Image:
           <input
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-            className="edit-pet__body"
+            className="add-pet__body"
           />
         </label>
         {(formInput.image || selectedImage) && (
@@ -226,15 +238,15 @@ function AddMyPetPage() {
                 : formInput.image
             }
             alt={formInput.name || "Pet Image"}
-            className="edit-pet__img"
+            className="add-pet__img"
           />
         )}
 
-        <div className="edit-pet__info">
-          <div className="edit-pet__container">
-            <label className="edit-pet__body">Sex:</label>
+        <div className="add-pet__info">
+          <div className="add-pet__container">
+            <label className="add-pet__body">Sex:</label>
             <div>
-              <label className="edit-pet__body edit-pet__body--male">
+              <label className="add-pet__body add-pet__body--male">
                 <input
                   type="radio"
                   value="male"
@@ -245,7 +257,7 @@ function AddMyPetPage() {
                 />
                 Male
               </label>
-              <label className="edit-pet__body edit-pet__body--female">
+              <label className="add-pet__body add-pet__body--female">
                 <input
                   type="radio"
                   value="female"
@@ -256,9 +268,9 @@ function AddMyPetPage() {
                 />
                 Female
               </label>
-              <label className="edit-pet__body">
+              <label className="add-pet__body">
                 {displaySpayOrNeuter(formInput)}:
-                <label className="edit-pet__body edit-pet__body--yes">
+                <label className="add-pet__body add-pet__body--yes">
                   <input
                     type="radio"
                     value="true"
@@ -269,7 +281,7 @@ function AddMyPetPage() {
                   />
                   IsMicro
                 </label>
-                <label className="edit-pet__body edit-pet__body--no">
+                <label className="add-pet__body add-pet__body--no">
                   <input
                     type="radio"
                     value="false"
@@ -283,7 +295,7 @@ function AddMyPetPage() {
               </label>
             </div>
           </div>
-          <label className="edit-pet__body">
+          <label className="add-pet__body">
             Type:
             <select
               type="select"
@@ -303,7 +315,7 @@ function AddMyPetPage() {
           {formInput.type &&
             formInput.type !== "Hedgehog" &&
             formInput.type !== "Other" && (
-              <label className="edit-pet__body">
+              <label className="add-pet__body">
                 Breed:
                 <select
                   value={formInput.breed}
@@ -321,59 +333,59 @@ function AddMyPetPage() {
                 </select>
               </label>
             )}
-          <label htmlFor="" className="edit-pet__label">
+          <label htmlFor="" className="add-pet__label">
             DOB:
             <input
               type="date"
               value={formInput.dob ? formatDate(formInput.dob) : ""}
-              className="edit-pet__body"
+              className="add-pet__body"
               onChange={handleTyping("dob")}
             />
           </label>
-          <label htmlFor="" className="edit-pet__label">
+          <label htmlFor="" className="add-pet__label">
             Weight:
             <input
               type="text"
               value={formInput.currentWeight}
-              className="edit-pet__body"
+              className="add-pet__body"
               placeholder="Your pet's weight in kg"
               onChange={handleWeightInput}
             />
             kg
           </label>
-          <label htmlFor="" className="edit-pet__label">
+          <label htmlFor="" className="add-pet__label">
             Food:
             <input
               type="text"
               value={formInput.food}
-              className="edit-pet__body"
+              className="add-pet__body"
               placeholder="Any food your pets consumes"
               onChange={handleTyping("food")}
             />
           </label>
-          <label htmlFor="" className="edit-pet__label">
+          <label htmlFor="" className="add-pet__label">
             Conditions:
             <input
               type="text"
               value={formInput.conditions}
-              className="edit-pet__body"
+              className="add-pet__body"
               placeholder="Any medical conditions your pet has"
               onChange={handleTyping("conditions")}
             />
           </label>
-          <label htmlFor="" className="edit-pet__label">
+          <label htmlFor="" className="add-pet__label">
             Medications:
             <input
               type="text"
               value={formInput.meds}
-              className="edit-pet__body"
+              className="add-pet__body"
               placeholder="Any medications your pet is taking"
               onChange={handleTyping("meds")}
             />
           </label>
-          <label className="edit-pet__body">
+          <label className="add-pet__body">
             Microchipped:
-            <label className="edit-pet__body edit-pet__body--yes">
+            <label className="add-pet__body add-pet__body--yes">
               <input
                 type="radio"
                 value="true"
@@ -384,7 +396,7 @@ function AddMyPetPage() {
               />
               IsMicro
             </label>
-            <label className="edit-pet__body edit-pet__body--no">
+            <label className="add-pet__body add-pet__body--no">
               <input
                 type="radio"
                 value="false"
@@ -397,12 +409,12 @@ function AddMyPetPage() {
             </label>
           </label>
           {formInput.isMicrochipped && (
-            <label htmlFor="" className="edit-pet__label">
+            <label htmlFor="" className="add-pet__label">
               Microchip Number:
               <input
                 type="text"
                 value={formInput.microNumber}
-                className="edit-pet__body"
+                className="add-pet__body"
                 placeholder="Your pet's microchip number"
                 onChange={handleTyping("microNumber")}
               />

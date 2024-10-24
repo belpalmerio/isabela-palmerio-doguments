@@ -1,0 +1,35 @@
+@use "../../styles/partials/mixins" as *;
+
+.add-pet {
+  &__body {
+    &--male {
+      background-image: url("../../assets/icons/male.svg");
+      @include icon;
+      color: transparent;
+    }
+
+    &--female {
+      background-image: url("../../assets/icons/female.svg");
+      @include icon;
+      color: transparent;
+    }
+  }
+
+  &__body {
+    &--yes {
+      background-image: url("../../assets/icons/yesicon.svg");
+      @include icon;
+      color: transparent;
+    }
+
+    &--no {
+      background-image: url("../../assets/icons/noicon.svg");
+      @include icon;
+      color: transparent;
+    }
+  }
+
+  &__img {
+    max-width: 200px;
+  }
+}

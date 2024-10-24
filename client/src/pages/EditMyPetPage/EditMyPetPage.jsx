@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import deleteicon from "../../assets/icons/deleteicon.svg";
+import backicon from "../../assets/icons/backicon.svg";
 
 function EditMyPetPage() {
   const { userId, petId } = useParams();
@@ -216,6 +217,17 @@ function EditMyPetPage() {
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>
+      <div className="back">
+        <Link to={`/pets/${petId}`}>
+          <button className="back-icon__button">
+            <img
+              src={backicon}
+              className="back-icon__img"
+              alt="Back to Pet List"
+            />
+          </button>
+        </Link>
+      </div>
       <form
         action="/pets"
         className="edit-pet__form"
