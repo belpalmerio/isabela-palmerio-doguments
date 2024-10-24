@@ -8,6 +8,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import editicon from "../../assets/icons/editicon.svg";
 import deleteicon from "../../assets/icons/deleteicon.svg";
+import backicon from "../../assets/icons/backicon.svg";
 
 function MyPetPage() {
   const { userId, petId } = useParams();
@@ -75,6 +76,17 @@ function MyPetPage() {
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>
+      <div className="back">
+        <Link to={`/pets/`}>
+          <button className="back-icon__button">
+            <img
+              src={backicon}
+              className="back-icon__img"
+              alt="Back to Pet List"
+            />
+          </button>
+        </Link>
+      </div>
       <h1 className="my-pet__title">{pet.name}</h1>
       <img
         src={`http://localhost:${port}/pet_uploads/${pet.image}`}
@@ -113,7 +125,7 @@ function MyPetPage() {
         <p className="my-pet__body">
           Microchipped: {pet.isMicrochipped ? "✅" : "❌"}
         </p>
-        {pet.isMicrochipped && pet.microNumber && (
+        {pet.isMicrochipped === 1 && pet.microNumber && (
           <p className="my-pet__body">Microchip Number: {pet.microNumber}</p>
         )}
       </div>

@@ -3,6 +3,7 @@ import formatDate from "../../utils/formatDate";
 import petAge from "../../utils/petAge";
 import formatFixed from "../../utils/formatFixed";
 import { Link } from "react-router-dom";
+import { port } from "../../utils/api";
 
 function PetCard({ pets }) {
   //scroll to top on pet click
@@ -22,7 +23,7 @@ function PetCard({ pets }) {
                   onClick={() => handleToTop()}
                 >
                   <img
-                    src={pet.image}
+                    src={`http://localhost:${port}/pet_uploads/${pet.image}`}
                     alt={pet.name}
                     className="my-pets__img"
                   />

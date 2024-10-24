@@ -1,7 +1,7 @@
-import "./EditMyPetPage.scss";
-import formatDate from "../../utils/formatDate";
-import petAge from "../../utils/petAge";
-import displaySpayOrNeuter from "../../utils/displaySpayOrNeuter";
+import "./AddMyPetPage.scss";
+import formatDate from "../../utils/formatDate.js";
+import petAge from "../../utils/petAge.js";
+import displaySpayOrNeuter from "../../utils/displaySpayOrNeuter.js";
 import {
   types,
   dogBreeds,
@@ -14,16 +14,19 @@ import {
   fishBreeds,
   rabbitBreeds,
   breedOptions,
-} from "../../utils/formTypes";
-import { requiredFields, requiredBooleans } from "../../utils/requiredFields";
-import { baseUrl, port } from "../../utils/api.js";
+} from "../../utils/formTypes.js";
+import {
+  requiredFields,
+  requiredBooleans,
+} from "../../utils/requiredFields.js";
+import { baseUrl } from "../../utils/api.js";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import deleteicon from "../../assets/icons/deleteicon.svg";
 
-function EditMyPetPage() {
-  const { userId, petId } = useParams();
+function AddMyPetPage() {
+  const { userId } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [originalDob, setOriginalDob] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
@@ -63,37 +66,8 @@ function EditMyPetPage() {
 
   //set document title
   useEffect(() => {
-    document.title = `Edit ${formInput.name} - Doguments`;
+    document.title = `Add Your Pet - Doguments`;
   }, [formInput]);
-
-  useEffect(() => {
-    async function getPetFormData() {
-      try {
-        const response = await axios.get(`${baseUrl}pets/${petId}`);
-        const data = response.data;
-        setFormInput({
-          name: data.name,
-          image: data.image,
-          dob: data.dob,
-          sex: data.sex,
-          isFixed: data.is_fixed === 1,
-          type: data.type,
-          breed: data.breed,
-          conditions: data.conditions,
-          food: data.food,
-          meds: data.meds,
-          currentWeight: data.current_weight,
-          isMicrochipped: data.is_microchipped === 1,
-          microNumber: data.micro_number,
-        });
-        setOriginalDob(data.dob);
-      } catch (error) {
-        console.log("Error fetching specific pet data", error);
-      }
-    }
-
-    getPetFormData();
-  }, [petId]);
 
   let navigate = useNavigate();
 
@@ -169,8 +143,11 @@ function EditMyPetPage() {
         formData.append("isMicrochipped", formInput.isMicrochipped ? 1 : 0);
         formData.append("microNumber", formInput.microNumber);
         console.log("Form data being sent:", formData);
+        for (let [key, value] of formData.entries()) {
+          console.log(`${key}:`, value);
+        }
 
-        const response = await axios.put(`${baseUrl}pets/${petId}`, formData, {
+        const response = await axios.post(`${baseUrl}pets/`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -205,7 +182,7 @@ function EditMyPetPage() {
   useEffect(() => {
     if (redirect) {
       setTimeout(() => {
-        navigate(`/pets/${petId}`);
+        navigate(`/pets`);
       }, 2500);
     }
   }, [redirect, navigate]);
@@ -222,12 +199,16 @@ function EditMyPetPage() {
         encType="multipart/form-data"
         onSubmit={handleFormSubmit}
       >
-        <input
-          type="text"
-          value={formInput.name}
-          className="edit-pet__title"
-          onChange={handleTyping("name")}
-        />
+        <label className="edit-pet__label">
+          Name:
+          <input
+            type="text"
+            value={formInput.name}
+            className="edit-pet__title"
+            placeholder="Your pet's name"
+            onChange={handleTyping("name")}
+          />
+        </label>
         <label className="edit-pet__label">
           Upload Image:
           <input
@@ -242,7 +223,7 @@ function EditMyPetPage() {
             src={
               selectedImage
                 ? URL.createObjectURL(selectedImage)
-                : `http://localhost:${port}/pet_uploads/${formInput.image}`
+                : formInput.image
             }
             alt={formInput.name || "Pet Image"}
             className="edit-pet__img"
@@ -355,6 +336,7 @@ function EditMyPetPage() {
               type="text"
               value={formInput.currentWeight}
               className="edit-pet__body"
+              placeholder="Your pet's weight in kg"
               onChange={handleWeightInput}
             />
             kg
@@ -365,6 +347,7 @@ function EditMyPetPage() {
               type="text"
               value={formInput.food}
               className="edit-pet__body"
+              placeholder="Any food your pets consumes"
               onChange={handleTyping("food")}
             />
           </label>
@@ -428,7 +411,7 @@ function EditMyPetPage() {
         </div>
 
         <button className="button" type="submit">
-          Update
+          Add Pet
         </button>
       </form>
 
@@ -439,4 +422,4 @@ function EditMyPetPage() {
   );
 }
 
-export default EditMyPetPage;
+export default AddMyPetPage;
