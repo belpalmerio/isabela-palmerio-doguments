@@ -9,6 +9,8 @@ import userRoutes from "./routes/user-routes.js";
 import petRoutes from "./routes/pet-routes.js";
 import recordRoutes from "./routes/record-routes.js";
 
+app.use("/pet_uploads", express.static("pet_uploads"));
+
 app.use(cors());
 app.use(express.json());
 

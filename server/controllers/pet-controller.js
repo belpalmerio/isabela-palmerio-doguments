@@ -15,17 +15,22 @@ const validatePetData = (data) => {
     !currentWeight ||
     !isMicrochipped
   ) {
-    return { valid: false, message: `These fields are required` };
+    return { valid: false, message: "These fields are required" };
   }
 
-  if (typeof currentWeight !== "number" || currentWeight <= 0) {
+  const weight =
+    typeof currentWeight === "string"
+      ? parseFloat(currentWeight)
+      : currentWeight;
+
+  if (isNaN(weight) || weight <= 0) {
     return {
       valid: false,
-      message: `Current weight must be a positive number`,
+      message: "Current weight must be a positive number",
     };
   }
 
-  return { valid: true };
+  return { valid: true, currentWeight: weight };
 };
 
 const findOne = async (req, res) => {
@@ -54,12 +59,14 @@ const findAll = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: `Unable to retrieve pet data`,
+      message: "Unable to retrieve pet data",
     });
   }
 };
 
 const create = async (req, res) => {
+  // temporary placeholder userId
+  const tempUserId = req.params.userId || 2;
   const validation = validatePetData(req.body);
   if (!validation.valid) {
     return res.status(400).json({ message: validation.message });
@@ -80,17 +87,24 @@ const create = async (req, res) => {
     microNumber,
     userId,
   } = req.body;
-  const { image } = req.file.buffer;
 
-  const userExists = await knex("users").where({ id: userId }).first();
-  if (!userExists) {
-    return res.status(400).json({ message: "User ID is invalid" });
+  const image = req.file;
+  if (!image) {
+    return res.status(400).json({ error: "Image upload failed" });
   }
+
+  const imageName = image.filename;
+
+  //to be used when login feature added
+  //   const userExists = await knex("users").where({ id: userId }).first();
+  //   if (!userExists) {
+  //     return res.status(400).json({ message: "User ID is invalid" });
+  //   }
 
   try {
     const result = await knex("pets").insert({
       name,
-      image,
+      image: imageName,
       dob,
       sex,
       is_fixed: isFixed,
@@ -102,7 +116,7 @@ const create = async (req, res) => {
       current_weight: currentWeight,
       is_microchipped: isMicrochipped,
       micro_number: microNumber,
-      user_id: userId,
+      user_id: tempUserId, //temporary userID until login feature implemented
     });
 
     const petData = await knex("pets").where({ id: result[0] }).first();
@@ -110,12 +124,14 @@ const create = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: `Unable to create pet`,
+      message: "Unable to create pet",
     });
   }
 };
 
 const edit = async (req, res) => {
+  console.log(req.file);
+  console.log(req.body);
   const validation = validatePetData(req.body);
   if (!validation.valid) {
     return res.status(400).json({ message: validation.message });
@@ -136,7 +152,10 @@ const edit = async (req, res) => {
     microNumber,
     userId,
   } = req.body;
-  const { image } = req.file.buffer;
+  let image;
+  if (req.file) {
+    image = req.file.buffer;
+  }
 
   try {
     const currentPet = await knex("pets").where({ id: req.params.id }).first();
@@ -146,9 +165,15 @@ const edit = async (req, res) => {
         .json({ message: `Pet with ID ${req.params.id} not found` });
     }
 
+    let imageName = currentPet.image;
+    if (req.file) {
+      const image = req.file;
+      imageName = image.filename;
+    }
+
     const updatedData = await knex("pets").where({ id: req.params.id }).update({
       name: name,
-      image: image,
+      image: imageName,
       dob: dob,
       sex: sex,
       is_fixed: isFixed,
@@ -194,7 +219,7 @@ const remove = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: `Unable to delete pet`,
+      message: "Unable to delete pet",
     });
   }
 };
