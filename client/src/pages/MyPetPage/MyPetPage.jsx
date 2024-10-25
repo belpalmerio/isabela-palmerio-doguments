@@ -108,7 +108,9 @@ function MyPetPage() {
         onDelete={handleDeleteModal}
         pet={pet}
       ></Modal>
-      <div className="records">Veterinary Records</div>
+      <Link to={`/pets/${petId}/records`}>
+        <div className="records">Veterinary Records</div>
+      </Link>
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
       <div className="notes">Notes</div>

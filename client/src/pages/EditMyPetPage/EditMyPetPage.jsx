@@ -113,13 +113,13 @@ function EditMyPetPage() {
     }
   };
 
-  const handleImageUpload = (e) => {
+  function handleImageUpload(e) {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
       setFormInput({ ...formInput, image: URL.createObjectURL(file) });
     }
-  };
+  }
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -474,7 +474,12 @@ function EditMyPetPage() {
       </form>
 
       <div className="delete-pet">
-        <img src={deleteicon} className="delete-icon" alt="Delete pet" />
+        <img
+          src={deleteicon}
+          className="delete-icon"
+          onClick={handleOpenModal}
+          alt="Delete pet"
+        />
       </div>
     </article>
   );
