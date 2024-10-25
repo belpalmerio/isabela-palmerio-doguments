@@ -10,13 +10,14 @@ import petRoutes from "./routes/pet-routes.js";
 import recordRoutes from "./routes/record-routes.js";
 
 app.use("/pet_uploads", express.static("pet_uploads"));
+app.use("/document_uploads", express.static("document_uploads"));
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/users", userRoutes);
 app.use("/pets", petRoutes);
-app.use("/records", recordRoutes);
+app.use("/pets", recordRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Doguments");
