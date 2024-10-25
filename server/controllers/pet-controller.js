@@ -89,11 +89,11 @@ const create = async (req, res) => {
   } = req.body;
 
   const image = req.file;
-  if (!image) {
-    return res.status(400).json({ error: "Image upload failed" });
-  }
+  let imageName = null;
 
-  const imageName = image.filename;
+  if (image) {
+    imageName = image.filename;
+  }
 
   //to be used when login feature added
   //   const userExists = await knex("users").where({ id: userId }).first();
