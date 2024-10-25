@@ -4,12 +4,15 @@ import petAge from "../../utils/petAge";
 import formatFixed from "../../utils/formatFixed";
 import { Link } from "react-router-dom";
 import { port } from "../../utils/api";
+import placeholderImage from "../../assets/images/placeholder--dog.webp";
 
 function PetCard({ pets }) {
   //scroll to top on pet click
   function handleToTop() {
     window.scrollTo(0, 0);
   }
+
+  console.log(placeholderImage);
 
   return (
     <article className="my-pets">
@@ -23,10 +26,15 @@ function PetCard({ pets }) {
                   onClick={() => handleToTop()}
                 >
                   <img
-                    src={`http://localhost:${port}/pet_uploads/${pet.image}`}
+                    src={
+                      pet.image
+                        ? `http://localhost:${port}/pet_uploads/${pet.image}`
+                        : placeholderImage
+                    }
                     alt={pet.name}
                     className="my-pets__img"
                   />
+
                   <div className="my-pets__info">
                     <p className="my-pets__body my-pets__body--title">
                       {pet.name}

@@ -4,14 +4,18 @@ import petAge from "../../utils/petAge";
 import formatFixed from "../../utils/formatFixed";
 import { baseUrl, port } from "../../utils/api.js";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import editicon from "../../assets/icons/editicon.svg";
 import deleteicon from "../../assets/icons/deleteicon.svg";
 import backicon from "../../assets/icons/backicon.svg";
+import Modal from "../../components/Modal/Modal.jsx";
+import placeholderImage from "../../assets/images/placeholder--dog.webp";
 
 function MyPetPage() {
   const { userId, petId } = useParams();
+  const [redirect, setRedirect] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [pet, setPet] = useState({
     id: "",
     name: "",
@@ -64,14 +68,46 @@ function MyPetPage() {
     }
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteModal = async () => {
+    const url = `${baseUrl}pets/${petId}`;
+    try {
+      await axios.delete(url);
+      setRedirect(true);
+    } catch (error) {
+      console.error("Error deleting pet", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     getSpecificPet();
   }, [petId]);
 
-  console.log(pet.image);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (redirect) {
+      setTimeout(() => {
+        navigate("/pets/");
+      }, 2500);
+    }
+  }, [redirect, navigate]);
 
   return (
     <article className="my-pet">
+      <Modal
+        isModalOpen={isModalOpen}
+        onClose={handleCancel}
+        onDelete={handleDeleteModal}
+        pet={pet}
+      ></Modal>
       <div className="records">Veterinary Records</div>
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
@@ -89,9 +125,13 @@ function MyPetPage() {
       </div>
       <h1 className="my-pet__title">{pet.name}</h1>
       <img
-        src={`http://localhost:${port}/pet_uploads/${pet.image}`}
+        src={
+          pet.image
+            ? `http://localhost:${port}/pet_uploads/${pet.image}`
+            : placeholderImage
+        }
         alt={pet.name}
-        className="my-pet__img"
+        className="my-pets__img"
       />
       <div className="my-pet__info">
         <p className="my-pet__body my-pet__body--title">{pet.name}</p>
@@ -116,7 +156,7 @@ function MyPetPage() {
         <p className="my-pet__body">{petAge(pet.dob)}</p>
         <p className="my-pet__body">{formatFixed(pet)}</p>
         <p className="my-pet__body">{pet.currentWeight} kg</p>
-        <p className="my-pet__body">Food: {pet.food}</p>
+        {pet.food && <p className="my-pet__body">Food: {pet.food}</p>}
         {pet.conditions && (
           <p className="my-pet__body">Conditions: {pet.conditions}</p>
         )}
@@ -139,7 +179,12 @@ function MyPetPage() {
       </div>
 
       <div className="delete-pet-icon">
-        <img src={deleteicon} className="delete-icon" alt="Delete pet" />
+        <img
+          src={deleteicon}
+          className="delete-icon"
+          alt="Delete pet"
+          onClick={handleOpenModal}
+        />
       </div>
     </article>
   );

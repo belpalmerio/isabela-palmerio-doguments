@@ -23,8 +23,8 @@ import { baseUrl } from "../../utils/api.js";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import deleteicon from "../../assets/icons/deleteicon.svg";
 import backicon from "../../assets/icons/backicon.svg";
+import placeholderImage from "../../assets/images/placeholder--dog.webp";
 
 function AddMyPetPage() {
   const { userId } = useParams();
@@ -128,7 +128,9 @@ function AddMyPetPage() {
       try {
         const formData = new FormData();
         formData.append("name", formInput.name);
-        formData.append("image", selectedImage);
+        if (selectedImage) {
+          formData.append("image", selectedImage);
+        }
         formData.append(
           "dob",
           formInput.dob ? formatDate(formInput.dob) : originalDob
@@ -426,10 +428,6 @@ function AddMyPetPage() {
           Add Pet
         </button>
       </form>
-
-      <div className="delete-pet">
-        <img src={deleteicon} className="delete-icon" alt="Delete pet" />
-      </div>
     </article>
   );
 }

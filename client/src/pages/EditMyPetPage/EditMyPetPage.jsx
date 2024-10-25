@@ -22,11 +22,13 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import deleteicon from "../../assets/icons/deleteicon.svg";
 import backicon from "../../assets/icons/backicon.svg";
+import Modal from "../../components/Modal/Modal.jsx";
 
 function EditMyPetPage() {
   const { userId, petId } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [originalDob, setOriginalDob] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [error, setError] = useState({
     id: "",
@@ -154,7 +156,9 @@ function EditMyPetPage() {
       try {
         const formData = new FormData();
         formData.append("name", formInput.name);
-        formData.append("image", selectedImage);
+        if (selectedImage) {
+          formData.append("image", selectedImage);
+        }
         formData.append(
           "dob",
           formInput.dob ? formatDate(formInput.dob) : originalDob
@@ -203,6 +207,24 @@ function EditMyPetPage() {
     }
   }
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteModal = async () => {
+    const url = `${baseUrl}pets/${petId}`;
+    try {
+      await axios.delete(url);
+      setRedirect(true);
+    } catch (error) {
+      console.error("Error deleting pet", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     if (redirect) {
       setTimeout(() => {
@@ -213,6 +235,12 @@ function EditMyPetPage() {
 
   return (
     <article className="edit-pet">
+      <Modal
+        isModalOpen={isModalOpen}
+        onClose={handleCancel}
+        onDelete={handleDeleteModal}
+        pet={formInput}
+      ></Modal>
       <div className="records">Veterinary Records</div>
       <div className="vaccines">Vaccine Log</div>
       <div className="weight">Weight Log</div>
@@ -378,6 +406,7 @@ function EditMyPetPage() {
               value={formInput.food}
               className="edit-pet__body"
               onChange={handleTyping("food")}
+              placeholder="Any food your pets consumes"
             />
           </label>
           <label htmlFor="" className="edit-pet__label">
