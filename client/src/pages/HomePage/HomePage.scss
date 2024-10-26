@@ -1,0 +1,21 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/_global.scss";
+
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 1rem;
+
+  &__container {
+    background-color: whitesmoke;
+    color: #30261b;
+    font-weight: 600;
+    width: 10rem;
+    padding: 1rem;
+    border: 0.5rem solid #30261b;
+    box-shadow: -2px 2px 5px rgb(0 0 0 / 0.2);
+  }
+}

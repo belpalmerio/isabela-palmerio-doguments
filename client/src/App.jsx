@@ -6,13 +6,13 @@ import MyPetPage from "./pages/MyPetPage/MyPetPage";
 import EditMyPetPage from "./pages/EditMyPetPage/EditMyPetPage";
 import RecordPage from "./pages/RecordPage/RecordPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-// import Header from "./components/Header/Header";
+import Header from "./components/Header/Header";
 import "./styles/partials/_global.scss";
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/pets" element={<MyPetListPage />} />
