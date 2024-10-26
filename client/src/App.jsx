@@ -7,6 +7,7 @@ import EditMyPetPage from "./pages/EditMyPetPage/EditMyPetPage";
 import RecordPage from "./pages/RecordPage/RecordPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Header from "./components/Header/Header";
+import Nav from "./components/Nav/Nav";
 import "./styles/partials/_global.scss";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/pets/:petId/records" element={<RecordPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Nav />
     </BrowserRouter>
   );
 }

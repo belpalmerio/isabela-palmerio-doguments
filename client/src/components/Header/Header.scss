@@ -2,27 +2,42 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/_global.scss";
 
-.header {
+.home-header {
   background-color: #79c3b2;
   text-align: center;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: whitesmoke;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   text-shadow: -5px 5px 5px #609c8e;
+
+  &__wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  &__button {
+    margin-right: 1rem;
+
+    &__:hover {
+      color: #dea850;
+    }
+  }
 
   &__logo {
     max-width: 15rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-bottom: 1rem;
+    filter: drop-shadow(-5px 5px 5px #609c8e);
   }
 
   &__title {
-    font-size: 5rem;
+    font-size: 4rem;
+    font-weight: 900;
   }
 
   &__text {
@@ -30,5 +45,46 @@
   }
 }
 
-// ffd440ff
-//  color: #30261b;
+.header {
+  background-color: #79c3b2;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.3rem;
+  padding-left: 1rem;
+  display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  color: whitesmoke;
+  text-shadow: -5px 5px 5px #609c8e;
+
+  &__wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    order: 2;
+  }
+
+  &__button {
+    margin-right: 1rem;
+    font-size: 0.9rem;
+
+    &__:hover {
+      color: #dea850;
+    }
+  }
+
+  &__logo {
+    max-width: 4.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    filter: drop-shadow(-5px 5px 5px #609c8e);
+    order: 1;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 900;
+    order: 1;
+    margin: 0.7rem 0.5rem 0 0.5rem;
+  }
+}

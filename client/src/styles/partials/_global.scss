@@ -1,22 +1,23 @@
-// @use './typography';
-// @use './variables' as *;
+@use "./typography";
+@use "./variables" as *;
 
 /* Global Styling */
 
 * {
   margin: 0;
   box-sizing: border-box;
-  font-weight: normal;
+  font-family: $font;
   //   color: $primary-text-color;
 }
 
 body {
   background-color: #fcf3d4;
+  margin-bottom: 4rem;
 }
 
-// input {
-//   font-family: $font;
-// }
+input {
+  font-family: $font;
+}
 
 /* List Styles */
 
@@ -40,4 +41,5 @@ button {
 /* Link Style Reset */
 a {
   text-decoration: none;
+  color: white;
 }

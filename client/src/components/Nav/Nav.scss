@@ -1,0 +1,37 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/_global.scss";
+
+.nav {
+  background-color: #79c3b2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  position: fixed;
+  padding-top: 1rem;
+  max-height: 3.5rem;
+
+  &__list {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__list-container {
+    display: flex;
+    width: auto;
+    flex: 0 0 33.3333%;
+    justify-content: space-between;
+  }
+
+  &__list-item {
+    text-align: center;
+    width: auto;
+  }
+
+  &__img {
+    max-width: 4rem;
+    position: relative;
+    bottom: 2.5rem;
+  }
+}
