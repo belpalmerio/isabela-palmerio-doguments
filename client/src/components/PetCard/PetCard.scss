@@ -1,7 +1,13 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/_global.scss";
 
 .my-pets {
   &__body {
+    text-align: start;
+    color: $pet-card-text;
+    margin: 0.5rem 0;
+
     &--male {
       background-image: url("../../assets/icons/male.svg");
       @include icon;
@@ -13,9 +19,49 @@
       @include icon;
       color: transparent;
     }
+
+    &--special {
+      margin-top: 0;
+    }
+
+    &--fixed {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &__button {
+    background-image: url("../../assets/icons/folder.png");
+    background-size: cover;
+    width: 22rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem 0.5rem 1rem;
+    border-radius: 0 0 15px 15px;
+    filter: drop-shadow(-5px 5px 5px $background-shadow);
+  }
+
+  &__header {
+    text-align: start;
+    padding-top: 0.6rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: $pet-card-text;
+  }
+
+  &__wrapper {
+    display: flex;
+    padding-top: 0.5rem;
+  }
+
+  &__gender-wrapper {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__img {
     max-width: 100px;
+  }
+
+  &__info {
+    margin-left: 1rem;
   }
 }

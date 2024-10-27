@@ -31,8 +31,10 @@ function MyPetListPage() {
   }, [userId]);
 
   return (
-    <div className="container">
-      <PetCard pets={pets} />
+    <div className="my-pets">
+      <ul className="my-pets__list">
+        <PetCard pets={pets} />
+      </ul>
       <Link to={"/pets/add"}>
         <button className="add-button">Add Pet</button>
       </Link>

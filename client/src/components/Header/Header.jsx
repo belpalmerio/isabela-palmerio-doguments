@@ -8,7 +8,7 @@ function Header() {
   const headerClass = path.pathname === "/" ? "home-header" : "header";
 
   return (
-    <article className={`${headerClass}`}>
+    <article className={`header ${headerClass}`}>
       <div className={`${headerClass}__wrapper`}>
         <Link to={"/login"}>
           <div className={`${headerClass}__button`}>Login</div>

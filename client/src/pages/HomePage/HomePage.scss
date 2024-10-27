@@ -8,14 +8,20 @@
   align-items: center;
   flex-direction: column;
   padding-top: 1rem;
+  color: $primary-text-color;
 
   &__container {
-    background-color: whitesmoke;
-    color: #30261b;
-    font-weight: 600;
-    width: 10rem;
+    width: 20rem;
     padding: 1rem;
-    border: 0.5rem solid #30261b;
-    box-shadow: -2px 2px 5px rgb(0 0 0 / 0.2);
+    border-radius: 1rem;
+  }
+
+  &__header {
+    font-weight: 900;
+  }
+
+  &__body {
+    font-weight: 400;
+    margin: 0 1rem;
   }
 }
