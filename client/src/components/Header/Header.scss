@@ -23,8 +23,9 @@
     margin-right: 1rem;
     font-size: 0.9rem;
 
-    &__:hover {
+    &:hover {
       color: $accent;
+      text-decoration: underline;
     }
   }
 
@@ -58,8 +59,9 @@
   &__button {
     margin-right: 1rem;
 
-    &__:hover {
+    &:hover {
       color: $accent;
+      text-decoration: underline;
     }
   }
 

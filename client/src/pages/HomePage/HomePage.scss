@@ -24,4 +24,16 @@
     font-weight: 400;
     margin: 0 1rem;
   }
+
+  &__button {
+    background-color: $primary;
+    margin-top: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    color: $logo-text-color;
+
+    &:hover {
+      background-color: $accent;
+    }
+  }
 }

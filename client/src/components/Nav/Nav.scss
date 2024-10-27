@@ -27,6 +27,10 @@
   &__list-item {
     text-align: center;
     width: auto;
+
+    &:hover {
+      color: $accent;
+    }
   }
 
   &__img {
