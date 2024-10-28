@@ -1,31 +1,27 @@
 import "./HomePage.scss";
+import TitleBox from "../../components/TitleBox/TitleBox.jsx";
+import { Link } from "react-router-dom";
+import icon from "../../assets/icons/teal_brown-icon.png";
 
 function HomePage() {
   return (
     <article className="home">
       <div className="home__container">
-        <h2 className="home__header">About Us.</h2>
+        <TitleBox title={"About Us"} />
         <p className="home__body">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-        <h2 className="home__header">Why.</h2>
-        <p className="home__body">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum."
+          Doguments bridges the gap between pet owners and veterinary
+          professionals by streamlining the process of managing medical records.
+          By offering a transparent, user-friendly platform, we make it easy for
+          veterinary professionals to upload important documents directly to pet
+          profiles, ensuring that owners stay informed and in control. With
+          everything from vaccination records to appointments in one place,
+          managing your pet's health has never been simpler.
         </p>
       </div>
-      <button className="home__button">Get Started.</button>
+      <img src={icon} alt="Paw Print Icon" className="home__icon" />
+      <Link to="/pets/add">
+        <button className="home__button">Get Started</button>
+      </Link>
     </article>
   );
 }

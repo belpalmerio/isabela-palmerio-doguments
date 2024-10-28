@@ -10,6 +10,7 @@ import editicon from "../../assets/icons/editicon.svg";
 import deleteicon from "../../assets/icons/deleteicon.svg";
 import backicon from "../../assets/icons/backicon.svg";
 import Modal from "../../components/Modal/Modal.jsx";
+import TitleBox from "../../components/TitleBox/TitleBox.jsx";
 import placeholderImage from "../../assets/images/placeholder--dog.webp";
 
 function MyPetPage() {
@@ -108,85 +109,143 @@ function MyPetPage() {
         onDelete={handleDeleteModal}
         pet={pet}
       ></Modal>
-      <Link to={`/pets/${petId}/records`}>
-        <div className="records">Veterinary Records</div>
-      </Link>
-      <div className="vaccines">Vaccine Log</div>
-      <div className="weight">Weight Log</div>
-      <div className="notes">Notes</div>
-      <div className="back">
-        <Link to={`/pets/`}>
-          <button className="back-icon__button">
-            <img
-              src={backicon}
-              className="back-icon__img"
-              alt="Back to Pet List"
-            />
-          </button>
+      <TitleBox title={`${pet.name}'s Profile`} />
+      <ul className="my-pet__list">
+        <Link to={`/pets/${petId}/records`}>
+          <li className="my-pet__item my-pet__item--records">
+            Veterinary Records
+          </li>
         </Link>
-      </div>
-      <h1 className="my-pet__title">{pet.name}</h1>
-      <img
-        src={
-          pet.image
-            ? `http://localhost:${port}/pet_uploads/${pet.image}`
-            : placeholderImage
-        }
-        alt={pet.name}
-        className="my-pets__img"
-      />
-      <div className="my-pet__info">
-        <p className="my-pet__body my-pet__body--title">{pet.name}</p>
-        <div className="my-pet__container">
-          <p
-            className={`my-pet__body ${
-              pet.sex === "male"
-                ? "my-pet__body--male"
-                : pet.sex === "female"
-                ? "my-pet__body--female"
-                : ""
-            }`}
-          >
-            {pet.sex}
-          </p>
+        <Link to={`/pets/${petId}/vaccines`}>
+          <li className="my-pet__item my-pet__item--vaccines">Vaccine Log</li>
+        </Link>
+        <Link to={`/pets/${petId}/weight`}>
+          <li className="my-pet__item my-pet__item--weight">Weight Log</li>
+        </Link>
+        <Link to={`/pets/${petId}/notes`}>
+          <li className="my-pet__item my-pet__item--notes">Notes</li>
+        </Link>
+      </ul>
+      <div className="my-pet__wrapper">
+        <div className="back">
+          <Link to={`/pets/`}>
+            <button className="back-icon__button">
+              <img
+                src={backicon}
+                className="back-icon__img"
+                alt="Back to Pet List"
+              />
+            </button>
+          </Link>
         </div>
-        <p className="my-pet__body">{pet.type}</p>
-        <p className="my-pet__body">{pet.breed}</p>
-        <p className="my-pet__body">
-          DOB: {pet.dob ? formatDate(pet.dob) : ""}
-        </p>
-        <p className="my-pet__body">{petAge(pet.dob)}</p>
-        <p className="my-pet__body">{formatFixed(pet)}</p>
-        <p className="my-pet__body">{pet.currentWeight} kg</p>
-        {pet.food && <p className="my-pet__body">Food: {pet.food}</p>}
-        {pet.conditions && (
-          <p className="my-pet__body">Conditions: {pet.conditions}</p>
-        )}
+        <div className="my-pet__img-container">
+          <img
+            src={
+              pet.image
+                ? `http://localhost:${port}/pet_uploads/${pet.image}`
+                : placeholderImage
+            }
+            alt={pet.name}
+            className="my-pet__img"
+          />
+        </div>
+        <div className="my-pet__info-wrapper">
+          <div className="my-pet__name-wrapper">
+            <h4 className="my-pet__title">{pet.name}</h4>
+            <p
+              className={`my-pet__body ${
+                pet.sex === "male"
+                  ? "my-pet__body--male"
+                  : pet.sex === "female"
+                  ? "my-pet__body--female"
+                  : ""
+              }`}
+            >
+              {pet.sex}
+            </p>
+          </div>
+          <div className="my-pet__info">
+            <div className="my-pet__info-container">
+              <div className="my-pet__type-container">
+                <p className="my-pet__body">{pet.type}</p>
+                <p className="my-pet__body">{pet.breed}</p>
+              </div>
+              <div className="my-pet__age-container">
+                <p className="my-pet__body">
+                  DOB: {pet.dob ? formatDate(pet.dob) : ""}
+                </p>
+                <p className="my-pet__body">{petAge(pet.dob)}</p>
+              </div>
+            </div>
+            <div className="my-pet__info-container">
+              <p className="my-pet__body">{formatFixed(pet)}</p>
+              <p className="my-pet__body">{pet.currentWeight} kg</p>
+            </div>
+            {pet.food && (
+              <>
+                <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
+                  Diet:
+                </p>
+                <p className="my-pet__body ">{pet.food}</p>{" "}
+              </>
+            )}
+            {pet.conditions && (
+              <>
+                <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
+                  Conditions:
+                </p>
+                <p className="my-pet__body">{pet.conditions}</p>
+              </>
+            )}
 
-        {pet.meds && <p className="my-pet__body">Medications: {pet.meds}</p>}
-        <p className="my-pet__body">
-          Microchipped: {pet.isMicrochipped ? "✅" : "❌"}
-        </p>
-        {pet.isMicrochipped === 1 && pet.microNumber && (
-          <p className="my-pet__body">Microchip Number: {pet.microNumber}</p>
-        )}
-      </div>
+            {pet.meds && (
+              <>
+                <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
+                  Medications:
+                </p>
+                <p className="my-pet__body">{pet.meds}</p>
+              </>
+            )}
+            <div className="my-pet__micro-container">
+              <div className="my-pet__container-wrapper my-pet__container-wrapper--flex">
+                <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
+                  Microchipped:
+                </p>
 
-      <div className="edit-pet-icon">
-        <Link to={`/pets/${petId}/edit`}>
-          <button className="edit-pet">
-            <img src={editicon} className="edit-icon" alt="Edit pet" />
-          </button>
-        </Link>
-      </div>
+                <p className="my-pet__body my-pet__body--conditional my-pet__body--space">
+                  {pet.isMicrochipped ? "✅" : "❌"}
+                </p>
+              </div>
+              {pet.isMicrochipped === 1 && pet.microNumber && (
+                <div className="my-pet__container-wrapper">
+                  <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
+                    Microchip Number:
+                  </p>
+                  <p className="my-pet__body">{pet.microNumber}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
-      <div className="delete-pet-icon">
-        <img
-          src={deleteicon}
-          className="delete-icon"
-          alt="Delete pet"
-          onClick={handleOpenModal}
-        />
+        <section className="my-pet__change-container">
+          <div className="edit-pet-icon">
+            <Link to={`/pets/${petId}/edit`}>
+              <button className="edit-pet">
+                <img src={editicon} className="edit-icon" alt="Edit pet" />
+              </button>
+            </Link>
+          </div>
+
+          <div className="delete-pet-icon">
+            <img
+              src={deleteicon}
+              className="delete-icon"
+              alt="Delete pet"
+              onClick={handleOpenModal}
+            />
+          </div>
+        </section>
       </div>
     </article>
   );

@@ -1,21 +1,121 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/global" as *;
 
 .my-pet {
+  padding: 2rem;
+
   &__body {
+    color: $pet-card-text;
+
     &--male {
       background-image: url("../../assets/icons/male.svg");
       @include icon;
       color: transparent;
+      display: inline-block;
     }
 
     &--female {
       background-image: url("../../assets/icons/female.svg");
       @include icon;
       color: transparent;
+      display: inline-block;
+    }
+
+    &--conditional {
+      margin-top: 1rem;
+    }
+
+    &--bold {
+      font-weight: 700;
+    }
+
+    &--space {
+      margin-left: 0.5rem;
     }
   }
 
+  &__list {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+  }
+
+  &__item {
+    text-align: center;
+    margin-right: 1rem;
+    filter: drop-shadow(-5px 5px 5px $background-shadow);
+    &:hover {
+      background-color: $primary;
+    }
+
+    &--notes {
+      margin-right: 1.4rem;
+      background-color: $notes;
+      padding: 0.2rem 0.2rem 2rem 0.2rem;
+    }
+
+    &--weight {
+      background-color: $weight;
+      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+
+    &--vaccines {
+      background-color: $vaccines;
+      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+
+    &--records {
+      margin-left: 3rem;
+      background-color: $records;
+      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+  }
+
+  &__wrapper {
+    padding: 2rem;
+    border-radius: 25px;
+    background-color: $accent;
+    filter: drop-shadow(-5px 5px 5px $background-shadow);
+  }
+
+  &__name-wrapper {
+    text-align: center;
+  }
+
+  &__title {
+    color: $pet-card-text;
+    font-size: 1.4rem;
+    display: inline-block;
+  }
+
   &__img {
-    max-width: 200px;
+    aspect-ratio: auto;
+    max-width: 20rem;
+  }
+
+  &__img-container {
+    text-align: center;
+  }
+
+  &__info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  &__micro-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__container-wrapper {
+    &--flex {
+      display: flex;
+    }
+  }
+
+  &__change-container {
+    display: flex;
   }
 }

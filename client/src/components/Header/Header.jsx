@@ -19,7 +19,11 @@ function Header() {
       </div>
       <img src={logo} alt="Doguments Logo" className={`${headerClass}__logo`} />
       <p className={`${headerClass}__title`}>Doguments</p>
-      {path.pathname === "/" && <p className={"home-header__text"}>Tagline</p>}
+      {path.pathname === "/" && (
+        <p className={"home-header__text"}>
+          Simplifying veterinary care one document at a time.
+        </p>
+      )}
     </article>
   );
 }

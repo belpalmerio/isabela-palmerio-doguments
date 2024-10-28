@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../utils/api.js";
+import TitleBox from "../../components/TitleBox/TitleBox.jsx";
 
 function MyPetListPage() {
   const { userId } = useParams();
@@ -32,6 +33,7 @@ function MyPetListPage() {
 
   return (
     <div className="my-pets">
+      <TitleBox title={"Pet Profiles"} />
       <ul className="my-pets__list">
         <PetCard pets={pets} />
       </ul>

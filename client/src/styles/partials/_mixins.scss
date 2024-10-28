@@ -1,6 +1,13 @@
-/* Icon Style */
+@use "../partials/variables" as *;
 
+/* Icon Style */
 @mixin icon {
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@mixin header {
+  font-weight: 900;
+  color: $primary-text-color;
+  font-size: 1.3rem;
 }
