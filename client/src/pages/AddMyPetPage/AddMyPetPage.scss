@@ -1,6 +1,10 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/global" as *;
 
 .add-pet {
+  padding: 2rem;
+
   &__body {
     &--male {
       background-image: url("../../assets/icons/male.svg");
@@ -30,6 +34,41 @@
   }
 
   &__img {
-    max-width: 200px;
+    max-width: 12.5rem;
+  }
+
+  &__wrapper {
+    padding: 2rem 2rem 1rem 2rem;
+    border-radius: 25px;
+    background-color: $accent;
+    filter: drop-shadow(-5px 5px 5px $background-shadow);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    background-color: $primary;
+    margin-top: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    color: $logo-text-color;
+
+    &:hover {
+      background-color: $accent;
+    }
+  }
+
+  &__button-wrapper {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
   }
 }

@@ -253,15 +253,15 @@ function MyPetPage() {
         </div>
 
         <section className="my-pet__icon-container">
-          <div className="edit-pet-icon">
+          <div className="my-pet__edit-icon">
             <Link to={`/pets/${petId}/edit`}>
-              <button className="edit-pet">
+              <button className="edit-icon">
                 <img src={editicon} className="edit-icon" alt="Edit pet" />
               </button>
             </Link>
           </div>
 
-          <div className="delete-pet-icon">
+          <div className="my-pet__delete-pet-icon">
             <img
               src={deleteicon}
               className="delete-icon"

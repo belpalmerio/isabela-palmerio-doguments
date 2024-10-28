@@ -30,6 +30,7 @@
     padding: 0.5rem 1rem;
     font-size: 1.2rem;
     color: $logo-text-color;
+    margin-bottom: 0.5rem;
 
     &:hover {
       background-color: $accent;
@@ -38,6 +39,6 @@
 
   &__button-wrapper {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
   }
 }

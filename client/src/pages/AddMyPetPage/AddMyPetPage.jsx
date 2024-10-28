@@ -24,7 +24,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import backicon from "../../assets/icons/backicon.svg";
-import placeholderImage from "../../assets/images/placeholder--dog.webp";
+import TitleBox from "../../components/TitleBox/TitleBox.jsx";
 
 function AddMyPetPage() {
   const { userId } = useParams();
@@ -192,11 +192,8 @@ function AddMyPetPage() {
 
   return (
     <article className="add-pet">
-      <div className="records">Veterinary Records</div>
-      <div className="vaccines">Vaccine Log</div>
-      <div className="weight">Weight Log</div>
-      <div className="notes">Notes</div>
-      <div className="back">
+      <TitleBox title={"Add Your Pet"} />
+      <div className="edit-pet__wrapper">
         <Link to={`/pets/`}>
           <button className="back-icon__button">
             <img
@@ -206,228 +203,231 @@ function AddMyPetPage() {
             />
           </button>
         </Link>
-      </div>
-      <form
-        action="/pets"
-        className="add-pet__form"
-        encType="multipart/form-data"
-        onSubmit={handleFormSubmit}
-      >
-        <label className="add-pet__label">
-          Name:
-          <input
-            type="text"
-            value={formInput.name}
-            className="add-pet__title"
-            placeholder="Your pet's name"
-            onChange={handleTyping("name")}
-          />
-        </label>
-        <label className="add-pet__label">
-          Upload Image:
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="add-pet__body"
-          />
-        </label>
-        {(formInput.image || selectedImage) && (
-          <img
-            src={
-              selectedImage
-                ? URL.createObjectURL(selectedImage)
-                : formInput.image
-            }
-            alt={formInput.name || "Pet Image"}
-            className="add-pet__img"
-          />
-        )}
-
-        <div className="add-pet__info">
-          <div className="add-pet__container">
-            <label className="add-pet__body">Sex:</label>
-            <div>
-              <label className="add-pet__body add-pet__body--male">
-                <input
-                  type="radio"
-                  value="male"
-                  checked={formInput.sex === "male"}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, sex: e.target.value })
-                  }
-                />
-                Male
-              </label>
-              <label className="add-pet__body add-pet__body--female">
-                <input
-                  type="radio"
-                  value="female"
-                  checked={formInput.sex === "female"}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, sex: e.target.value })
-                  }
-                />
-                Female
-              </label>
-              <label className="add-pet__body">
-                {displaySpayOrNeuter(formInput)}:
-                <label className="add-pet__body add-pet__body--yes">
-                  <input
-                    type="radio"
-                    value="true"
-                    checked={formInput.isFixed === true}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, isFixed: true })
-                    }
-                  />
-                  IsMicro
-                </label>
-                <label className="add-pet__body add-pet__body--no">
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={formInput.isFixed === false}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, isFixed: false })
-                    }
-                  />
-                  IsntMicro
-                </label>
-              </label>
-            </div>
-          </div>
-          <label className="add-pet__body">
-            Type:
-            <select
-              type="select"
-              value={formInput.type}
-              onChange={(e) =>
-                setFormInput({ ...formInput, type: e.target.value })
+        <form
+          action="/pets"
+          className="add-pet__form"
+          encType="multipart/form-data"
+          onSubmit={handleFormSubmit}
+        >
+          <label className="add-pet__label">
+            Name:
+            <input
+              type="text"
+              value={formInput.name}
+              className="add-pet__title"
+              placeholder="Your pet's name"
+              onChange={handleTyping("name")}
+            />
+          </label>
+          <label className="add-pet__label">
+            Upload Image:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="add-pet__body"
+            />
+          </label>
+          {(formInput.image || selectedImage) && (
+            <img
+              src={
+                selectedImage
+                  ? URL.createObjectURL(selectedImage)
+                  : formInput.image
               }
-            >
-              <option>Select Type</option>
-              {types?.map((types) => (
-                <option key={types} value={types}>
-                  {types}
-                </option>
-              ))}{" "}
-            </select>
-          </label>
-          {formInput.type &&
-            formInput.type !== "Hedgehog" &&
-            formInput.type !== "Other" && (
-              <label className="add-pet__body">
-                Breed:
-                <select
-                  value={formInput.breed}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, breed: e.target.value })
-                  }
-                  disabled={!formInput.type || formInput.type === "Select Type"}
-                >
-                  <option>Select Breed</option>
-                  {breedOptions[formInput.type]?.map((breed) => (
-                    <option key={breed} value={breed}>
-                      {breed}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            )}
-          <label htmlFor="" className="add-pet__label">
-            DOB:
-            <input
-              type="date"
-              value={formInput.dob ? formatDate(formInput.dob) : ""}
-              className="add-pet__body"
-              onChange={handleTyping("dob")}
+              alt={formInput.name || "Pet Image"}
+              className="add-pet__img"
             />
-          </label>
-          <label htmlFor="" className="add-pet__label">
-            Weight:
-            <input
-              type="text"
-              value={formInput.currentWeight}
-              className="add-pet__body"
-              placeholder="Your pet's weight in kg"
-              onChange={handleWeightInput}
-            />
-            kg
-          </label>
-          <label htmlFor="" className="add-pet__label">
-            Food:
-            <input
-              type="text"
-              value={formInput.food}
-              className="add-pet__body"
-              placeholder="Any food your pets consumes"
-              onChange={handleTyping("food")}
-            />
-          </label>
-          <label htmlFor="" className="add-pet__label">
-            Conditions:
-            <input
-              type="text"
-              value={formInput.conditions}
-              className="add-pet__body"
-              placeholder="Any medical conditions your pet has"
-              onChange={handleTyping("conditions")}
-            />
-          </label>
-          <label htmlFor="" className="add-pet__label">
-            Medications:
-            <input
-              type="text"
-              value={formInput.meds}
-              className="add-pet__body"
-              placeholder="Any medications your pet is taking"
-              onChange={handleTyping("meds")}
-            />
-          </label>
-          <label className="add-pet__body">
-            Microchipped:
-            <label className="add-pet__body add-pet__body--yes">
-              <input
-                type="radio"
-                value="true"
-                checked={formInput.isMicrochipped === true}
+          )}
+
+          <div className="add-pet__info">
+            <div className="add-pet__container">
+              <label className="add-pet__body">Sex:</label>
+              <div>
+                <label className="add-pet__body add-pet__body--male">
+                  <input
+                    type="radio"
+                    value="male"
+                    checked={formInput.sex === "male"}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, sex: e.target.value })
+                    }
+                  />
+                  Male
+                </label>
+                <label className="add-pet__body add-pet__body--female">
+                  <input
+                    type="radio"
+                    value="female"
+                    checked={formInput.sex === "female"}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, sex: e.target.value })
+                    }
+                  />
+                  Female
+                </label>
+                <label className="add-pet__body">
+                  {displaySpayOrNeuter(formInput)}:
+                  <label className="add-pet__body add-pet__body--yes">
+                    <input
+                      type="radio"
+                      value="true"
+                      checked={formInput.isFixed === true}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, isFixed: true })
+                      }
+                    />
+                    IsMicro
+                  </label>
+                  <label className="add-pet__body add-pet__body--no">
+                    <input
+                      type="radio"
+                      value="false"
+                      checked={formInput.isFixed === false}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, isFixed: false })
+                      }
+                    />
+                    IsntMicro
+                  </label>
+                </label>
+              </div>
+            </div>
+            <label className="add-pet__body">
+              Type:
+              <select
+                type="select"
+                value={formInput.type}
                 onChange={(e) =>
-                  setFormInput({ ...formInput, isMicrochipped: true })
+                  setFormInput({ ...formInput, type: e.target.value })
                 }
-              />
-              IsMicro
+              >
+                <option>Select Type</option>
+                {types?.map((types) => (
+                  <option key={types} value={types}>
+                    {types}
+                  </option>
+                ))}{" "}
+              </select>
             </label>
-            <label className="add-pet__body add-pet__body--no">
-              <input
-                type="radio"
-                value="false"
-                checked={formInput.isMicrochipped === false}
-                onChange={(e) =>
-                  setFormInput({ ...formInput, isMicrochipped: false })
-                }
-              />
-              IsntMicro
-            </label>
-          </label>
-          {formInput.isMicrochipped && (
+            {formInput.type &&
+              formInput.type !== "Hedgehog" &&
+              formInput.type !== "Other" && (
+                <label className="add-pet__body">
+                  Breed:
+                  <select
+                    value={formInput.breed}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, breed: e.target.value })
+                    }
+                    disabled={
+                      !formInput.type || formInput.type === "Select Type"
+                    }
+                  >
+                    <option>Select Breed</option>
+                    {breedOptions[formInput.type]?.map((breed) => (
+                      <option key={breed} value={breed}>
+                        {breed}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
             <label htmlFor="" className="add-pet__label">
-              Microchip Number:
+              DOB:
+              <input
+                type="date"
+                value={formInput.dob ? formatDate(formInput.dob) : ""}
+                className="add-pet__body"
+                onChange={handleTyping("dob")}
+              />
+            </label>
+            <label htmlFor="" className="add-pet__label">
+              Weight:
               <input
                 type="text"
-                value={formInput.microNumber}
+                value={formInput.currentWeight}
                 className="add-pet__body"
-                placeholder="Your pet's microchip number"
-                onChange={handleTyping("microNumber")}
+                placeholder="Your pet's weight in kg"
+                onChange={handleWeightInput}
+              />
+              kg
+            </label>
+            <label htmlFor="" className="add-pet__label">
+              Food:
+              <input
+                type="text"
+                value={formInput.food}
+                className="add-pet__body"
+                placeholder="Any food your pets consumes"
+                onChange={handleTyping("food")}
               />
             </label>
-          )}
-        </div>
-
-        <button className="button" type="submit">
-          Add Pet
-        </button>
-      </form>
+            <label htmlFor="" className="add-pet__label">
+              Conditions:
+              <input
+                type="text"
+                value={formInput.conditions}
+                className="add-pet__body"
+                placeholder="Any medical conditions your pet has"
+                onChange={handleTyping("conditions")}
+              />
+            </label>
+            <label htmlFor="" className="add-pet__label">
+              Medications:
+              <input
+                type="text"
+                value={formInput.meds}
+                className="add-pet__body"
+                placeholder="Any medications your pet is taking"
+                onChange={handleTyping("meds")}
+              />
+            </label>
+            <label className="add-pet__body">
+              Microchipped:
+              <label className="add-pet__body add-pet__body--yes">
+                <input
+                  type="radio"
+                  value="true"
+                  checked={formInput.isMicrochipped === true}
+                  onChange={(e) =>
+                    setFormInput({ ...formInput, isMicrochipped: true })
+                  }
+                />
+                IsMicro
+              </label>
+              <label className="add-pet__body add-pet__body--no">
+                <input
+                  type="radio"
+                  value="false"
+                  checked={formInput.isMicrochipped === false}
+                  onChange={(e) =>
+                    setFormInput({ ...formInput, isMicrochipped: false })
+                  }
+                />
+                IsntMicro
+              </label>
+            </label>
+            {formInput.isMicrochipped && (
+              <label htmlFor="" className="add-pet__label">
+                Microchip Number:
+                <input
+                  type="text"
+                  value={formInput.microNumber}
+                  className="add-pet__body"
+                  placeholder="Your pet's microchip number"
+                  onChange={handleTyping("microNumber")}
+                />
+              </label>
+            )}
+          </div>
+          <div className="add-pet__button-wrapper">
+            <button className="add-pet__button" type="submit">
+              Add Pet
+            </button>
+          </div>
+        </form>
+      </div>
     </article>
   );
 }
