@@ -13,64 +13,69 @@ Additionally, in the veterinary industry record-keeping and tracking is a known 
 
 In short, Doguments aims to:
 
--   Reduce the demand for veterinary professionals by decreasing need to transfer documents.
--   Allow the user easy access to their pets' documents in case of emergency.
--   Keep all a pet's crucial information in one spot (conditions, medications, food etc.) to allow ease of access for both the user and veterinary professionals during intake, and keep track of any potentially concerning trends (change in food/water consumption, vomiting, changes in urination/defecation).
--   Simplify the user's scheduling and history by keeping a log of all veterinary visits and any upcoming scheduled visits.
+- Reduce the demand for veterinary professionals by decreasing need to transfer documents.
+- Allow the user easy access to their pets' documents in case of emergency.
+- Keep all a pet's crucial information in one spot (conditions, medications, food etc.) to allow ease of access for both the user and veterinary professionals during intake, and keep track of any potentially concerning trends (change in food/water consumption, vomiting, changes in urination/defecation).
+
+// for future implementation
+
+- Simplify the user's scheduling and history by keeping a log of all veterinary visits and any upcoming scheduled visits.
 
 ### User Profile
 
 Pet owners:
 
--   "pet parents", those that wish to take a larger role in their pet's healthcare
--   keep track of changes in their pet's behaviour
--   have all vet records/vaccination history in one spot
--   keep vet visit history/upcoming visits in one spot
+- "pet parents", those that wish to take a larger role in their pet's healthcare
+- keep track of changes in their pet's behaviour
+- have all vet records/vaccination history in one spot
+- keep vet visit history/upcoming visits in one spot
 
+// for future implementation
 Veterinary professionals:
 
--   upload veterinary records to clients' profiles
--   access stored pet information
+- upload veterinary records to clients' profiles
+- access stored pet information
 
 ### Features
 
--   as a user I want to:
-    -   see all my added pets
-    -   add a profile for my pet
-        -   add the following information: image (optional), age + date of birth, species, breed (optional), sex, select spayed or neutered, microchipped y or n and if so add the number, known medical conditions and when it was diagnosed, any medications and dosage/fequency, type of feed and amount fed per day / # of meals
-        -   update the above information as needed
-    -   see a log of my pet's vaccination history
-        -   add or update information as needed
-    -   see a log of my pet's weight
-        -   add new weights as necessary
-    -   keep an addional section for notes about changes in my pet's behaviour
-    -   upload and access my pet's veterinary records
+- as a user I want to:
+  - see all my added pets
+  - add a profile for my pet
+    - add the following information: image (optional), age + date of birth, species, breed (optional), sex, select spayed or neutered, microchipped y or n and if so add the number, known medical conditions, any medications, type of feed
+    - update the above information as needed
+  - upload and access my pet's veterinary records
+    // for future implementation
+  - see a log of my pet's vaccination history
+    - add or update information as needed
+  - see a log of my pet's weight
+    - add new weights as necessary
+  - keep an addional section for notes about changes in my pet's behaviour
 
 ## Implementation
 
 ### Tech Stack
 
--   React
--   Javascript
--   MySQL
--   Node.js
--   Client libraries:
-    -   react
-    -   react-router
-    -   react-router-dom
-    -   axio-sass
-    -   sass
--   Server libraries:
-    -   knex
-    -   express
-    -   cors
-    -   uuid
-    -   dotenv
-    -   multer
+- React
+- Javascript
+- MySQL
+- Node.js
+- Client libraries:
+  - react
+  - react-router
+  - react-router-dom
+  - axio-sass
+  - sass
+- Server libraries:
+  - knex
+  - express
+  - cors
+  - uuid
+  - dotenv
+  - multer
 
 ### APIs
 
-No external API, I will create my own.
+No external API.
 
 ### Sitemap
 
@@ -110,7 +115,7 @@ Documents/Upload
 
 GET /pets
 
--   get a list of a user's added pets
+- get a list of a user's added pets
 
 Response:
 
@@ -153,11 +158,11 @@ Response:
 
 GET /pets/:id
 
--   get a profile of a specific pet
+- get a profile of a specific pet
 
 Parameters:
 
--   pet id number
+- pet id number
 
 Response:
 
@@ -181,19 +186,19 @@ Response:
 
 POST /pets
 
--   add a new pet profile
+- add a new pet profile
 
 Parameters:
 
--   the following data must be filled out:
-    -   name
-    -   dob - YYYY-MM-DD format
-    -   sex - M or F
-    -   is fixed - T or F
-    -   type
-    -   food
-    -   current weight - number up to 2 decimals in kg
-    -   is microchipped, optionally microchip number if yes
+- the following data must be filled out:
+  - name
+  - dob - YYYY-MM-DD format
+  - sex - M or F
+  - is fixed - T or F
+  - type
+  - food
+  - current weight - number up to 2 decimals in kg
+  - is microchipped, optionally microchip number if yes
 
 Response:
 
@@ -217,19 +222,19 @@ Response:
 
 PUT /pets/:id
 
--   update a pet's profile
+- update a pet's profile
 
 Parameters:
 
--   the following data must be filled out and changed from the original:
-    -   name
-    -   dob - YYYY-MM-DD format
-    -   sex - M or F
-    -   is fixed - T or F
-    -   type
-    -   food
-    -   current weight - number up to 2 decimals in kg
-    -   is microchipped, optionally microchip number if yes
+- the following data must be filled out and changed from the original:
+  - name
+  - dob - YYYY-MM-DD format
+  - sex - M or F
+  - is fixed - T or F
+  - type
+  - food
+  - current weight - number up to 2 decimals in kg
+  - is microchipped, optionally microchip number if yes
 
 Response:
 
@@ -253,24 +258,24 @@ Response:
 
 DELETE /pets/:id
 
--   remove a pet's profile
+- remove a pet's profile
 
 Parameters:
 
--   pet id number
+- pet id number
 
 GET /pets/:id/records
 
--   access a list of a pet's veterinary records and their dates
+- access a list of a pet's veterinary records and their dates
 
 POST /pets/:id/records
 
--   upload a new record for a pet
+- upload a new record for a pet
 
 Parameters:
 
--   pet id number
--   pdf file
+- pet id number
+- pdf file
 
 ```
 [
@@ -286,8 +291,8 @@ Parameters:
 
 Parameters:
 
--   pet id number
--   pdf file
+- pet id number
+- pdf file
 
 ```
 {
@@ -300,77 +305,124 @@ Parameters:
 
 DELETE /pets/:id/record/:recordid
 
--   remove an existing file from the list of pet records
+- remove an existing file from the list of pet records
 
 ## Roadmap
 
--   Set up the project environment:
+- Set up the project environment:
 
-    -   Create a new Vite React project and install dependencies.
+  - Create a new Vite React project and install dependencies.
 
--   Set up Express server and MySQL database.
+- Set up Express server and MySQL database.
 
-    -   Install necessary dependencies (React, Express, Knex, CORS, Multer, etc.).
+  - Install necessary dependencies (React, Express, Knex, CORS, Multer, etc.).
 
--   Create the initial folder structure:
+- Create the initial folder structure:
 
-    -   client/ for React app.
-    -   server/ for Express API.
+  - client/ for React app.
+  - server/ for Express API.
 
--   Set up basic routing in React (react-router).
+- Set up basic routing in React (react-router).
 
--   Design the MySQL database schema:
+- Design the MySQL database schema:
 
-    -   Tables for pets, vaccinations, weights, vet records.
+  - Tables for pets, vaccinations, weights, vet records.
 
--   Write migration files using Knex.
+- Write migration files using Knex.
 
--   Develop basic Express API endpoints:
+- Develop basic Express API endpoints:
 
-    -   GET /pets, POST /pets, GET /pets/:id, PUT /pets/:id, DELETE /pets/:id.
-    -   GET /pets/:id/records, POST /pets/:id/records.
+  - GET /pets, POST /pets, GET /pets/:id, PUT /pets/:id, DELETE /pets/:id.
+  - GET /pets/:id/records, POST /pets/:id/records.
 
--   Create the Home Page, My Pets Page, Specific Pet Page.
+- Create the Home Page, My Pets Page, Specific Pet Page.
 
--   Use React components to display pet cards with basic details.
+- Use React components to display pet cards with basic details.
 
--   Create Add Pet Page.
+- Create Add Pet Page.
 
--   Create a form for pet details.
+- Create a form for pet details.
 
-    -   Integrate form submission to API.
-    -   Use Multer for handling file uploads.
+  - Integrate form submission to API.
+  - Use Multer for handling file uploads.
 
--   Create the Specific Pet Page.
+- Create the Specific Pet Page.
 
-    -   Display detailed information about a pet.
-    -   Integrate Edit Pet functionality with a form to update pet info.
-    -   Implement the Delete Pet functionality.
-        -   Add a delete button and handle confirmation.
+  - Display detailed information about a pet.
+  - Integrate Edit Pet functionality with a form to update pet info.
+  - Implement the Delete Pet functionality.
+    - Add a delete button and handle confirmation.
 
--   Create Records Page and Upload record functionality:
+- Create Records Page and Upload record functionality:
 
-    -   Use Multer for handling file uploads.
-    -   Create a form to upload veterinary records.
+  - Use Multer for handling file uploads.
+  - Create a form to upload veterinary records.
 
--   Conduct thorough testing of all features:
+- Conduct thorough testing of all features:
 
-    -   Ensure all CRUD operations work correctly.
-    -   Test user interface responsiveness and usability.
+  - Ensure all CRUD operations work correctly.
+  - Test user interface responsiveness and usability.
 
--   Add any finishing touches (styling, error handling).
+- Add any finishing touches (styling, error handling).
 
--   Prepare project for deployment (set up environment variables, configure production settings).
+- Prepare project for deployment (set up environment variables, configure production settings).
 
 ---
 
 ## Future Implementations
 
--   Ability for veterinary professionals to access and upload documents on clients' profiles
--   Login and authentication details for clients to access personal list of their pets only
--   Login and authentication details for veterinary staff to access list of their clients only
--   Ability to switch between kg and lbs for pet weight
--   Add ability to add specific notes for a pet - a written log
--   Add a route to display trends in pet weight (add a visual such as a chart)
--   Add a route to access pet's vaccination history (visual display as a calendar or chart)
--   Mobile app
+- Ability for veterinary professionals to access and upload documents on clients' profiles
+- Login and authentication details for clients to access personal list of their pets only
+- Login and authentication details for veterinary staff to access list of their clients only
+- Add a user (client or vet) profile page
+- Add a settings page
+- Ability to switch between kg and lbs for pet weight
+- Ability to track previous and upcoming veterinary appointments
+- Add ability to add specific notes for a pet - a written log
+- Add a route to display trends in pet weight (add a visual such as a chart)
+- Add a route to access pet's vaccination history (visual display as a calendar or chart)
+- add to pets table:
+  - time of diagnosis for medical conditions
+  - dosage/fequency of medications
+  - number of meals/how much fed per day
+  - home veterinary clinic and or veterinarian
+- Mobile app
+
+## Installation Instructions
+
+1. Clone the repo and cd into folder
+
+```
+git clone https://github.com/belpalmerio/isabela-palmerio-doguments.git
+cd doguments
+```
+
+2. Install NPM packages
+
+```
+npm i
+```
+
+3. Access env.sample in server side - create doguments database in MySQL
+
+4. Run migration files
+
+```
+npx knex migrate:latest
+or
+npm run migrate
+```
+
+5. Run seed files
+
+```
+npx knex seed:run
+or
+npm run seed
+```
+
+6. Start express and local host in server and client sides
+
+```
+npm run dev
+```
