@@ -1,3 +1,7 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/_global.scss";
+
 .overlay {
   position: fixed;
   top: 0;
@@ -12,7 +16,42 @@
 }
 
 .popup {
-  background: white;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: $logo-text-color;
+  padding: 5rem 2.8rem;
+  box-shadow: 0 4px 10px $background-shadow;
+
+  &__icon {
+    margin-right: 1rem;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__label {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__body {
+    margin-bottom: 1.5rem;
+  }
+
+  &__button {
+    background-color: $primary;
+    margin-top: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    color: $logo-text-color;
+
+    &:hover {
+      background-color: $accent;
+    }
+  }
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
 }

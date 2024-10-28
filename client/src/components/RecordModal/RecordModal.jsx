@@ -1,5 +1,6 @@
 import "./RecordModal.scss";
 import { useState } from "react";
+import backicon from "../../assets/icons/backicon.svg";
 
 function RecordModal({ isModalOpen, handleCancel, handleRecordUpload, petId }) {
   const [apptDate, setApptDate] = useState("");
@@ -32,36 +33,40 @@ function RecordModal({ isModalOpen, handleCancel, handleRecordUpload, petId }) {
   return (
     <div className="overlay">
       <div className="popup">
-        <article className="record">
-          <button className="record__close" onClick={handleCancel}>
-            X
-          </button>
-          <h2 className="record__title">Upload Documents</h2>
+        <article className="popup__container">
+          <h2 className="popup__title">
+            <button className="popup__close" onClick={handleCancel}>
+              <img src={backicon} className="popup__icon" alt="Back Icon" />
+            </button>
+            Upload Documents
+          </h2>
           <form
             encType="multipart/form-data"
-            className="record__form"
+            className="popup__form"
             onSubmit={handleSubmit}
           >
-            <label className="record__label">
-              Appointment Date:
+            <label className="popup__label">
+              Date:
               <input
                 type="date"
-                className="record__body"
+                className="popup__body"
                 value={apptDate}
                 onChange={(e) => setApptDate(e.target.value)}
               />
             </label>
             <input
-              className="record__body"
+              className="popup__body"
               type="file"
               name="recordFile"
               accept=".pdf, .doc, .docx, .jpg, .jpeg, .png, image/*"
               onChange={handleFileChange}
               required
             />
-            <button type="submit" className="record__submit">
-              Upload
-            </button>
+            <div className="popup__button-wrapper">
+              <button type="submit" className="popup__button">
+                Upload
+              </button>
+            </div>
           </form>
         </article>
       </div>

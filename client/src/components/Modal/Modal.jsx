@@ -8,9 +8,17 @@ const Modal = ({ isModalOpen, onClose, onDelete, pet }) => {
   return (
     <div className="overlay">
       <div className="popup">
-        <h2>Are you sure you want to delete {pet.name}?</h2>
-        <button onClick={onDelete}>Delete</button>
-        <button onClick={onClose}>Cancel</button>
+        <h2 className="popup__title">
+          Are you sure you want to delete {pet.name}?
+        </h2>
+        <div className="popup__button-wrapper">
+          <button className="popup__button" onClick={onDelete}>
+            Delete
+          </button>
+          <button className="popup__button" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
