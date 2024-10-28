@@ -20,7 +20,7 @@
   }
 
   &__button {
-    margin-right: 1rem;
+    margin-right: 0.7rem;
     font-size: 0.9rem;
 
     &:hover {
@@ -30,7 +30,7 @@
   }
 
   &__logo {
-    max-width: 4.5rem;
+    max-width: 4rem;
     padding-top: 0.5rem;
     padding-bottom: 1rem;
     filter: drop-shadow(-5px 5px 5px $primary-shadow);
@@ -38,7 +38,7 @@
   }
 
   &__title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
     order: 1;
     margin: 0.7rem 0.5rem 0 1rem;
@@ -49,6 +49,7 @@
   padding-bottom: 1rem;
   flex-direction: column;
   align-items: center;
+  padding: 0 1rem;
 
   &__wrapper {
     display: flex;
@@ -57,7 +58,7 @@
   }
 
   &__button {
-    margin-right: 1rem;
+    margin-left: 1rem;
 
     &:hover {
       color: $accent;
@@ -73,7 +74,7 @@
   }
 
   &__title {
-    font-size: 4rem;
+    font-size: 3.7rem;
     font-weight: 900;
   }
 

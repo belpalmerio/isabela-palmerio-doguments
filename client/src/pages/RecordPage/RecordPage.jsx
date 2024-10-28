@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../utils/api.js";
+import TitleBox from "../../components/TitleBox/TitleBox.jsx";
 import RecordModal from "../../components/RecordModal/RecordModal.jsx";
 import backicon from "../../assets/icons/backicon.svg";
 
@@ -60,33 +61,41 @@ function RecordPage() {
   let navigate = useNavigate();
 
   return (
-    <div className="container">
-      <div className="records">Veterinary Records</div>
-      <div className="vaccines">Vaccine Log</div>
-      <div className="weight">Weight Log</div>
-      <div className="notes">Notes</div>
-      <div className="back">
+    <div className="record">
+      <TitleBox title={"Documents"} />
+      <ul className="record__list">
+        <Link to={`/pets/${petId}/records`}>
+          <li className="my-pet__item my-pet__item--records">Docs</li>
+        </Link>
+        <Link to={`/pets/${petId}/vaccines`}>
+          <li className="my-pet__item my-pet__item--vaccines">Vaccine Log</li>
+        </Link>
+        <Link to={`/pets/${petId}/weight`}>
+          <li className="my-pet__item my-pet__item--weight">Weight Log</li>
+        </Link>
+        <Link to={`/pets/${petId}/notes`}>
+          <li className="my-pet__item my-pet__item--notes">Notes</li>
+        </Link>
+      </ul>
+      <div className="record__wrapper">
         <Link to={`/pets/${petId}`}>
-          <button className="back-icon__button">
-            <img
-              src={backicon}
-              className="back-icon__img"
-              alt="Back to Pet List"
-            />
+          <button className="back__button">
+            <img src={backicon} className="back__img" alt="Back to Pet List" />
           </button>
         </Link>
+        <Record records={records} />
+        <div className="record__button-wrapper">
+          <button className="record__button" onClick={handleOpenModal}>
+            Add Document
+          </button>
+        </div>
+        <RecordModal
+          isModalOpen={isModalOpen}
+          handleCancel={handleCancel}
+          handleRecordUpload={handleRecordUpload}
+          petId={petId}
+        />
       </div>
-      RECORD PAGE
-      <button className="record" onClick={handleOpenModal}>
-        Add Document
-      </button>
-      <RecordModal
-        isModalOpen={isModalOpen}
-        handleCancel={handleCancel}
-        handleRecordUpload={handleRecordUpload}
-        petId={petId}
-      />
-      <Record records={records} />
     </div>
   );
 }

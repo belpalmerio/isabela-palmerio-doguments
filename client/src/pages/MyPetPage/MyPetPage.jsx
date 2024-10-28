@@ -11,7 +11,10 @@ import deleteicon from "../../assets/icons/deleteicon.svg";
 import backicon from "../../assets/icons/backicon.svg";
 import Modal from "../../components/Modal/Modal.jsx";
 import TitleBox from "../../components/TitleBox/TitleBox.jsx";
-import placeholderImage from "../../assets/images/placeholder--dog.webp";
+import placeholderImage from "../../assets/images/placeholder--dog.png";
+import pawicon1 from "../../assets/icons/brown_beige-icon.png";
+import pawicon2 from "../../assets/icons/teal_beige-icon.png";
+import pawicon3 from "../../assets/icons/brown_teal-icon.png";
 
 function MyPetPage() {
   const { userId, petId } = useParams();
@@ -112,9 +115,7 @@ function MyPetPage() {
       <TitleBox title={`${pet.name}'s Profile`} />
       <ul className="my-pet__list">
         <Link to={`/pets/${petId}/records`}>
-          <li className="my-pet__item my-pet__item--records">
-            Veterinary Records
-          </li>
+          <li className="my-pet__item my-pet__item--records">Docs</li>
         </Link>
         <Link to={`/pets/${petId}/vaccines`}>
           <li className="my-pet__item my-pet__item--vaccines">Vaccine Log</li>
@@ -127,27 +128,29 @@ function MyPetPage() {
         </Link>
       </ul>
       <div className="my-pet__wrapper">
-        <div className="back">
-          <Link to={`/pets/`}>
-            <button className="back-icon__button">
-              <img
-                src={backicon}
-                className="back-icon__img"
-                alt="Back to Pet List"
-              />
-            </button>
-          </Link>
-        </div>
-        <div className="my-pet__img-container">
-          <img
-            src={
-              pet.image
-                ? `http://localhost:${port}/pet_uploads/${pet.image}`
-                : placeholderImage
-            }
-            alt={pet.name}
-            className="my-pet__img"
-          />
+        <div className="my-pet__change-container">
+          <div className="back">
+            <Link to={`/pets/`}>
+              <button className="back__button">
+                <img
+                  src={backicon}
+                  className="back__img"
+                  alt="Back to Pet List"
+                />{" "}
+              </button>
+            </Link>
+          </div>
+          <div className="my-pet__img-container">
+            <img
+              src={
+                pet.image
+                  ? `http://localhost:${port}/pet_uploads/${pet.image}`
+                  : placeholderImage
+              }
+              alt={pet.name}
+              className="my-pet__img"
+            />
+          </div>
         </div>
         <div className="my-pet__info-wrapper">
           <div className="my-pet__name-wrapper">
@@ -172,7 +175,7 @@ function MyPetPage() {
               </div>
               <div className="my-pet__age-container">
                 <p className="my-pet__body">
-                  DOB: {pet.dob ? formatDate(pet.dob) : ""}
+                  {pet.dob ? formatDate(pet.dob) : ""}
                 </p>
                 <p className="my-pet__body">{petAge(pet.dob)}</p>
               </div>
@@ -186,7 +189,14 @@ function MyPetPage() {
                 <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
                   Diet:
                 </p>
-                <p className="my-pet__body ">{pet.food}</p>{" "}
+                <p className="my-pet__body ">
+                  <img
+                    src={pawicon1}
+                    alt="Paw Print Icon"
+                    className="my-pet__icon"
+                  />
+                  {pet.food}
+                </p>{" "}
               </>
             )}
             {pet.conditions && (
@@ -194,7 +204,14 @@ function MyPetPage() {
                 <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
                   Conditions:
                 </p>
-                <p className="my-pet__body">{pet.conditions}</p>
+                <p className="my-pet__body">
+                  <img
+                    src={pawicon2}
+                    alt="Paw Print Icon"
+                    className="my-pet__icon"
+                  />
+                  {pet.conditions}
+                </p>
               </>
             )}
 
@@ -203,7 +220,14 @@ function MyPetPage() {
                 <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
                   Medications:
                 </p>
-                <p className="my-pet__body">{pet.meds}</p>
+                <p className="my-pet__body">
+                  <img
+                    src={pawicon3}
+                    alt="Paw Print Icon"
+                    className="my-pet__icon"
+                  />
+                  {pet.meds}
+                </p>
               </>
             )}
             <div className="my-pet__micro-container">
@@ -228,7 +252,7 @@ function MyPetPage() {
           </div>
         </div>
 
-        <section className="my-pet__change-container">
+        <section className="my-pet__icon-container">
           <div className="edit-pet-icon">
             <Link to={`/pets/${petId}/edit`}>
               <button className="edit-pet">

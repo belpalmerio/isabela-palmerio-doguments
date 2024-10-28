@@ -4,17 +4,17 @@ import { baseUrl, port } from "../../utils/api";
 
 function Record({ records }) {
   return (
-    <>
-      <div className="records">Veterinary Records</div>
+    <section className="doc">
       {records.length > 0 ? (
         <ul>
           {records.map((record) => (
-            <li key={record.id}>
+            <li className="doc__item" key={record.id}>
+              <p className="doc__body">Appointment Date:</p>
               {formatDate(record.appt_date)}
               <img
                 src={`http://localhost:${port}/document_uploads/${record.record_file}`}
                 alt={record.record_file}
-                className="my-pets__img"
+                className="doc__img"
               />
             </li>
           ))}
@@ -22,7 +22,7 @@ function Record({ records }) {
       ) : (
         <p>No records found.</p>
       )}
-    </>
+    </section>
   );
 }
 

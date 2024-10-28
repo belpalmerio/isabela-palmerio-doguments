@@ -43,7 +43,7 @@
 
   &__item {
     text-align: center;
-    margin-right: 1rem;
+    margin-right: 0.7rem;
     filter: drop-shadow(-5px 5px 5px $background-shadow);
     &:hover {
       background-color: $primary;
@@ -68,12 +68,12 @@
     &--records {
       margin-left: 3rem;
       background-color: $records;
-      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+      padding: 0.2rem 0.2rem 2rem 0.2rem;
     }
   }
 
   &__wrapper {
-    padding: 2rem;
+    padding: 2rem 2rem 1rem 2rem;
     border-radius: 25px;
     background-color: $accent;
     filter: drop-shadow(-5px 5px 5px $background-shadow);
@@ -91,7 +91,7 @@
 
   &__img {
     aspect-ratio: auto;
-    max-width: 20rem;
+    max-width: 14rem;
   }
 
   &__img-container {
@@ -118,4 +118,19 @@
   &__change-container {
     display: flex;
   }
+
+  &__icon {
+    max-width: 0.8rem;
+    margin-right: 0.5rem;
+  }
+
+  &__icon-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+}
+
+.back {
+  margin-right: 0.25rem;
 }

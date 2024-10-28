@@ -1,0 +1,72 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/global" as *;
+
+.record {
+  padding: 2rem;
+
+  &__list {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+  }
+
+  &__item {
+    text-align: center;
+    margin-right: 1rem;
+    filter: drop-shadow(-5px 5px 5px $background-shadow);
+    &:hover {
+      background-color: $primary;
+    }
+
+    &--notes {
+      margin-right: 1.4rem;
+      background-color: $notes;
+      padding: 0.2rem 0.2rem 2rem 0.2rem;
+    }
+
+    &--weight {
+      background-color: $weight;
+      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+
+    &--vaccines {
+      background-color: $vaccines;
+      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+
+    &--records {
+      margin-left: 3rem;
+      background-color: $records;
+      padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+  }
+
+  &__wrapper {
+    padding: 2rem;
+    border-radius: 25px;
+    background-color: $accent;
+    filter: drop-shadow(-5px 5px 5px $background-shadow);
+  }
+
+  &__button {
+    background-color: $primary;
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    color: $logo-text-color;
+
+    &:hover {
+      background-color: $accent;
+    }
+  }
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.back {
+  margin-right: 0.25rem;
+}
