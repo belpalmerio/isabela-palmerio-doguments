@@ -33,6 +33,21 @@
     }
   }
 
+  &__mf {
+    margin-bottom: 1rem;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  &__edit-title-container {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
   &__img {
     max-width: 12.5rem;
   }
@@ -45,6 +60,11 @@
   }
 
   &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__sex {
     display: flex;
     flex-direction: column;
   }
@@ -70,5 +90,12 @@
     margin-top: 1rem;
     display: flex;
     justify-content: center;
+  }
+}
+
+.back-icon {
+  &__button {
+    margin-top: 0.4rem;
+    margin-right: 0.4rem;
   }
 }

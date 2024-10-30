@@ -242,7 +242,18 @@ function EditMyPetPage() {
         onDelete={handleDeleteModal}
         pet={formInput}
       ></Modal>
-      <TitleBox title={`Edit ${formInput.name}'s Info`} />
+      <div className="edit-pet__back">
+        <Link to={`/pets/${petId}`}>
+          <button className="back-icon__button">
+            <img
+              src={backicon}
+              className="back-icon__img"
+              alt="Back to Pet List"
+            />
+          </button>
+        </Link>
+        <TitleBox title={`Edit ${formInput.name}'s Info`} />{" "}
+      </div>
       <ul className="my-pet__list">
         <Link to={`/pets/${petId}/records/edit`}>
           <li className="my-pet__item my-pet__item--records">Docs</li>
@@ -258,15 +269,6 @@ function EditMyPetPage() {
         </Link>
       </ul>
       <div className="edit-pet__wrapper">
-        <Link to={`/pets/${petId}`}>
-          <button className="back-icon__button">
-            <img
-              src={backicon}
-              className="back-icon__img"
-              alt="Back to Pet List"
-            />
-          </button>
-        </Link>
         <form
           action="/pets"
           className="edit-pet__form"
@@ -303,57 +305,64 @@ function EditMyPetPage() {
           <div className="edit-pet__info">
             <div className="edit-pet__container">
               <div className="edit-pet__gender">
-                <label className="edit-pet__body">Sex:</label>
-                <label className="edit-pet__body edit-pet__body--male">
-                  <input
-                    type="radio"
-                    value="male"
-                    checked={formInput.sex === "male"}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, sex: e.target.value })
-                    }
-                  />
-                  Male
+                <label className="edit-pet__label edit-pet__label--top">
+                  Sex:
                 </label>
-                <label className="edit-pet__body edit-pet__body--female">
-                  <input
-                    type="radio"
-                    value="female"
-                    checked={formInput.sex === "female"}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, sex: e.target.value })
-                    }
-                  />
-                  Female
-                </label>
+                <div className="edit-pet__gender">
+                  <label className="edit-pet__body edit-pet__body--male">
+                    <input
+                      type="radio"
+                      value="male"
+                      checked={formInput.sex === "male"}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, sex: e.target.value })
+                      }
+                    />
+                    Male
+                  </label>
+                  <label className="edit-pet__body edit-pet__body--female">
+                    <input
+                      type="radio"
+                      value="female"
+                      checked={formInput.sex === "female"}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, sex: e.target.value })
+                      }
+                    />
+                    Female
+                  </label>
+                </div>
               </div>
-              <label className="edit-pet__body">
+
+              <label className="edit-pet__label">
                 {displaySpayOrNeuter(formInput)}:
-                <label className="edit-pet__body edit-pet__body--yes">
-                  <input
-                    type="radio"
-                    value="true"
-                    checked={formInput.isFixed === true}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, isFixed: true })
-                    }
-                  />
-                  IsFixed
-                </label>
-                <label className="edit-pet__body edit-pet__body--no">
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={formInput.isFixed === false}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, isFixed: false })
-                    }
-                  />
-                  IsntFixed
-                </label>
+                <div className="edit-pet__fixed">
+                  <label className="edit-pet__body edit-pet__body--yes">
+                    <input
+                      type="radio"
+                      value="true"
+                      checked={formInput.isFixed === true}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, isFixed: true })
+                      }
+                    />
+                    IsFixed
+                  </label>
+                  <label className="edit-pet__body edit-pet__body--no">
+                    <input
+                      type="radio"
+                      value="false"
+                      checked={formInput.isFixed === false}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, isFixed: false })
+                      }
+                    />
+                    IsntFixed
+                  </label>
+                </div>
               </label>
             </div>
-            <label className="edit-pet__body">
+            <label className="edit-pet__label">
               Type:
               <select
                 type="select"
@@ -373,7 +382,7 @@ function EditMyPetPage() {
             {formInput.type &&
               formInput.type !== "Hedgehog" &&
               formInput.type !== "Other" && (
-                <label className="edit-pet__body">
+                <label className="edit-pet__label">
                   Breed:
                   <select
                     value={formInput.breed}
@@ -410,7 +419,6 @@ function EditMyPetPage() {
                 className="edit-pet__body"
                 onChange={handleWeightInput}
               />
-              kg
             </label>
             <label htmlFor="" className="edit-pet__label">
               Food:
@@ -442,30 +450,32 @@ function EditMyPetPage() {
                 onChange={handleTyping("meds")}
               />
             </label>
-            <label className="edit-pet__body">
+            <label className="edit-pet__label">
               Microchipped:
-              <label className="edit-pet__body edit-pet__body--yes">
-                <input
-                  type="radio"
-                  value="true"
-                  checked={formInput.isMicrochipped === true}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, isMicrochipped: true })
-                  }
-                />
-                IsMicro
-              </label>
-              <label className="edit-pet__body edit-pet__body--no">
-                <input
-                  type="radio"
-                  value="false"
-                  checked={formInput.isMicrochipped === false}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, isMicrochipped: false })
-                  }
-                />
-                IsntMicro
-              </label>
+              <div className="edit-pet__fixed">
+                <label className="edit-pet__body edit-pet__body--yes">
+                  <input
+                    type="radio"
+                    value="true"
+                    checked={formInput.isMicrochipped === true}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, isMicrochipped: true })
+                    }
+                  />
+                  IsMicro
+                </label>
+                <label className="edit-pet__body edit-pet__body--no">
+                  <input
+                    type="radio"
+                    value="false"
+                    checked={formInput.isMicrochipped === false}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, isMicrochipped: false })
+                    }
+                  />
+                  IsntMicro
+                </label>
+              </div>
             </label>
             {formInput.isMicrochipped && (
               <label htmlFor="" className="edit-pet__label">

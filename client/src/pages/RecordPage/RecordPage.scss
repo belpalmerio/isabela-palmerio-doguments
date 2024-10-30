@@ -62,11 +62,23 @@
   }
 
   &__button-wrapper {
+    display: block;
+    text-align: center;
+  }
+
+  &__wrapper-wrapper {
     display: flex;
     justify-content: center;
+  }
+
+  &__cont {
+    display: flex;
   }
 }
 
 .back {
-  margin-right: 0.25rem;
+  &__button {
+    margin-right: 0.25rem;
+    margin-top: 0.6rem;
+  }
 }

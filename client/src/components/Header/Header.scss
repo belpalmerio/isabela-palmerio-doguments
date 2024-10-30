@@ -29,6 +29,10 @@
     }
   }
 
+  &__logo-container {
+    display: flex;
+  }
+
   &__logo {
     max-width: 4rem;
     padding-top: 0.5rem;
@@ -46,11 +50,10 @@
 }
 
 .home-header {
-  padding-bottom: 1rem;
   flex-direction: column;
   align-items: center;
   padding: 0 1rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 
   &__wrapper {
     display: flex;
@@ -74,6 +77,12 @@
     filter: drop-shadow(-5px 5px 5px $primary-shadow);
   }
 
+  &__logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__title {
     font-size: 3.7rem;
     font-weight: 900;
@@ -82,5 +91,6 @@
   &__text {
     font-weight: 100;
     margin-top: 0.5rem;
+    padding-bottom: 1rem;
   }
 }

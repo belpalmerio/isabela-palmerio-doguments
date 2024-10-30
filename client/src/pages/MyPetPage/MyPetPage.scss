@@ -33,6 +33,18 @@
     &--space {
       margin-left: 0.5rem;
     }
+
+    &--50 {
+      width: 100%;
+    }
+
+    &--type {
+      margin-top: 1rem;
+    }
+
+    &--list {
+      margin-top: 0.5rem;
+    }
   }
 
   &__list {
@@ -45,6 +57,8 @@
     text-align: center;
     margin-right: 0.7rem;
     filter: drop-shadow(-5px 5px 5px $background-shadow);
+    border-radius: 0.2rem 0.2rem 0 0;
+
     &:hover {
       background-color: $primary;
     }
@@ -58,11 +72,13 @@
     &--weight {
       background-color: $weight;
       padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+      max-width: 5.625rem;
     }
 
     &--vaccines {
       background-color: $vaccines;
       padding: 0.2rem 0.2rem 0.5rem 0.2rem;
+      max-width: 5.625rem;
     }
 
     &--records {
@@ -79,19 +95,17 @@
     filter: drop-shadow(-5px 5px 5px $background-shadow);
   }
 
-  &__name-wrapper {
-    text-align: center;
-  }
-
   &__title {
     color: $pet-card-text;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     display: inline-block;
   }
 
   &__img {
     aspect-ratio: auto;
     max-width: 14rem;
+    border-radius: 50rem;
+    filter: drop-shadow(-5px 5px 5px $accent-shadow);
   }
 
   &__img-container {
@@ -100,13 +114,11 @@
 
   &__info-container {
     display: flex;
-    justify-content: space-between;
     margin-top: 1rem;
   }
 
   &__micro-container {
-    display: flex;
-    justify-content: space-between;
+    display: block;
   }
 
   &__container-wrapper {
@@ -117,6 +129,10 @@
 
   &__change-container {
     display: flex;
+  }
+
+  &__type-container {
+    width: 50%;
   }
 
   &__icon {
@@ -133,4 +149,5 @@
 
 .back {
   margin-right: 0.25rem;
+  margin-top: 0.35rem;
 }

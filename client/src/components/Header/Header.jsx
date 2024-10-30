@@ -17,8 +17,16 @@ function Header() {
           <div className={`${headerClass}__button`}>Sign Up</div>
         </Link>
       </div>
-      <img src={logo} alt="Doguments Logo" className={`${headerClass}__logo`} />
-      <p className={`${headerClass}__title`}>Doguments</p>
+      <Link to={"/"}>
+        <div className={`${headerClass}__logo-container`}>
+          <img
+            src={logo}
+            alt="Doguments Logo"
+            className={`${headerClass}__logo`}
+          />
+          <p className={`${headerClass}__title`}>Doguments</p>
+        </div>
+      </Link>
       {path.pathname === "/" && (
         <p className={"home-header__text"}>
           Simplifying veterinary care one document at a time.

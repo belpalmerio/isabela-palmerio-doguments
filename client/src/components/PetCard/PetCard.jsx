@@ -4,7 +4,7 @@ import petAge from "../../utils/petAge";
 import formatFixed from "../../utils/formatFixed";
 import { Link } from "react-router-dom";
 import { port } from "../../utils/api";
-import placeholderImage from "../../assets/images/placeholder--dog.webp";
+import placeholderImage from "../../assets/images/placeholder--dog.png";
 
 function PetCard({ pets }) {
   //scroll to top on pet click

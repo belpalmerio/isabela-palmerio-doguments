@@ -112,7 +112,20 @@ function MyPetPage() {
         onDelete={handleDeleteModal}
         pet={pet}
       ></Modal>
-      <TitleBox title={`${pet.name}'s Profile`} />
+      <div className="my-pet__change-container">
+        <div className="back">
+          <Link to={`/pets/`}>
+            <button className="back__button">
+              <img
+                src={backicon}
+                className="back__img"
+                alt="Back to Pet List"
+              />
+            </button>
+          </Link>
+        </div>
+        <TitleBox title={`${pet.name}'s Profile`} />
+      </div>
       <ul className="my-pet__list">
         <Link to={`/pets/${petId}/records`}>
           <li className="my-pet__item my-pet__item--records">Docs</li>
@@ -128,29 +141,16 @@ function MyPetPage() {
         </Link>
       </ul>
       <div className="my-pet__wrapper">
-        <div className="my-pet__change-container">
-          <div className="back">
-            <Link to={`/pets/`}>
-              <button className="back__button">
-                <img
-                  src={backicon}
-                  className="back__img"
-                  alt="Back to Pet List"
-                />{" "}
-              </button>
-            </Link>
-          </div>
-          <div className="my-pet__img-container">
-            <img
-              src={
-                pet.image
-                  ? `http://localhost:${port}/pet_uploads/${pet.image}`
-                  : placeholderImage
-              }
-              alt={pet.name}
-              className="my-pet__img"
-            />
-          </div>
+        <div className="my-pet__img-container">
+          <img
+            src={
+              pet.image
+                ? `http://localhost:${port}/pet_uploads/${pet.image}`
+                : placeholderImage
+            }
+            alt={pet.name}
+            className="my-pet__img"
+          />
         </div>
         <div className="my-pet__info-wrapper">
           <div className="my-pet__name-wrapper">
@@ -171,32 +171,38 @@ function MyPetPage() {
             <div className="my-pet__info-container">
               <div className="my-pet__type-container">
                 <p className="my-pet__body">{pet.type}</p>
-                <p className="my-pet__body">{pet.breed}</p>
+                <p className="my-pet__body my-pet__body--type">{pet.breed}</p>
               </div>
               <div className="my-pet__age-container">
                 <p className="my-pet__body">
                   {pet.dob ? formatDate(pet.dob) : ""}
                 </p>
-                <p className="my-pet__body">{petAge(pet.dob)}</p>
+                <p className="my-pet__body my-pet__body--type">
+                  {petAge(pet.dob)}
+                </p>
               </div>
             </div>
             <div className="my-pet__info-container">
-              <p className="my-pet__body">{formatFixed(pet)}</p>
-              <p className="my-pet__body">{pet.currentWeight} kg</p>
+              <p className="my-pet__body my-pet__body--50">
+                {formatFixed(pet)}
+              </p>
+              <p className="my-pet__body my-pet__body--50">
+                {pet.currentWeight} kg
+              </p>
             </div>
             {pet.food && (
               <>
                 <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
                   Diet:
                 </p>
-                <p className="my-pet__body ">
+                <p className="my-pet__body my-pet__body--list">
                   <img
                     src={pawicon1}
                     alt="Paw Print Icon"
                     className="my-pet__icon"
                   />
                   {pet.food}
-                </p>{" "}
+                </p>
               </>
             )}
             {pet.conditions && (
@@ -204,7 +210,7 @@ function MyPetPage() {
                 <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
                   Conditions:
                 </p>
-                <p className="my-pet__body">
+                <p className="my-pet__body my-pet__body--list">
                   <img
                     src={pawicon2}
                     alt="Paw Print Icon"
@@ -220,7 +226,7 @@ function MyPetPage() {
                 <p className="my-pet__body my-pet__body--bold my-pet__body--conditional">
                   Medications:
                 </p>
-                <p className="my-pet__body">
+                <p className="my-pet__body my-pet__body--list">
                   <img
                     src={pawicon3}
                     alt="Paw Print Icon"

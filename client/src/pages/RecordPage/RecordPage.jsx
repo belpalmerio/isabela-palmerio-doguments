@@ -62,7 +62,14 @@ function RecordPage() {
 
   return (
     <div className="record">
-      <TitleBox title={"Documents"} />
+      <div className="record__cont">
+        <Link to={`/pets/${petId}`}>
+          <button className="back__button">
+            <img src={backicon} className="back__img" alt="Back to Pet List" />
+          </button>
+        </Link>
+        <TitleBox title={"Documents"} />
+      </div>
       <ul className="record__list">
         <Link to={`/pets/${petId}/records`}>
           <li className="my-pet__item my-pet__item--records">Docs</li>
@@ -78,16 +85,16 @@ function RecordPage() {
         </Link>
       </ul>
       <div className="record__wrapper">
-        <Link to={`/pets/${petId}`}>
-          <button className="back__button">
-            <img src={backicon} className="back__img" alt="Back to Pet List" />
-          </button>
-        </Link>
         <Record records={records} />
-        <div className="record__button-wrapper">
-          <button className="record__button" onClick={handleOpenModal}>
-            Add Document
-          </button>
+        <div className="record__wrapper-wrapper">
+          <div className="record__button-wrapper">
+            <button className="record__button" onClick={handleOpenModal}>
+              Add Document
+            </button>
+            <button className="record__button" onClick={handleOpenModal}>
+              Request Document
+            </button>
+          </div>
         </div>
         <RecordModal
           isModalOpen={isModalOpen}

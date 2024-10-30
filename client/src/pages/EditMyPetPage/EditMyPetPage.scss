@@ -33,6 +33,10 @@
     }
   }
 
+  &__gender {
+    margin-bottom: 1rem;
+  }
+
   &__img {
     max-width: 12.5rem;
   }
@@ -54,6 +58,10 @@
     flex-direction: column;
   }
 
+  &__title {
+    margin-bottom: 1rem;
+  }
+
   &__button {
     background-color: $primary;
     margin-top: 0.25rem;
@@ -66,9 +74,28 @@
     }
   }
 
+  &__fixed {
+    display: flex;
+  }
+
   &__button-wrapper {
     margin-top: 1rem;
     display: flex;
     justify-content: center;
+  }
+
+  &__back {
+    display: flex;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    &--top {
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
   }
 }

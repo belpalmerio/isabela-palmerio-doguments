@@ -192,8 +192,7 @@ function AddMyPetPage() {
 
   return (
     <article className="add-pet">
-      <TitleBox title={"Add Your Pet"} />
-      <div className="edit-pet__wrapper">
+      <div className="add-pet__edit-title-container">
         <Link to={`/pets/`}>
           <button className="back-icon__button">
             <img
@@ -203,6 +202,9 @@ function AddMyPetPage() {
             />
           </button>
         </Link>
+        <TitleBox title={"Add Your Pet"} />
+      </div>
+      <div className="edit-pet__wrapper">
         <form
           action="/pets"
           className="add-pet__form"
@@ -243,58 +245,64 @@ function AddMyPetPage() {
           <div className="add-pet__info">
             <div className="add-pet__container">
               <label className="add-pet__body">Sex:</label>
-              <div>
-                <label className="add-pet__body add-pet__body--male">
-                  <input
-                    type="radio"
-                    value="male"
-                    checked={formInput.sex === "male"}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, sex: e.target.value })
-                    }
-                  />
-                  Male
-                </label>
-                <label className="add-pet__body add-pet__body--female">
-                  <input
-                    type="radio"
-                    value="female"
-                    checked={formInput.sex === "female"}
-                    onChange={(e) =>
-                      setFormInput({ ...formInput, sex: e.target.value })
-                    }
-                  />
-                  Female
-                </label>
+              <div className="add-pet__sex">
+                <div className="add-pet__mf">
+                  <label className="add-pet__body add-pet__body--male">
+                    <input
+                      type="radio"
+                      value="male"
+                      checked={formInput.sex === "male"}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, sex: e.target.value })
+                      }
+                    />
+                    Male
+                  </label>
+                  <label className="add-pet__body add-pet__body--female">
+                    <input
+                      type="radio"
+                      value="female"
+                      checked={formInput.sex === "female"}
+                      onChange={(e) =>
+                        setFormInput({ ...formInput, sex: e.target.value })
+                      }
+                    />
+                    Female
+                  </label>
+                </div>
                 <label className="add-pet__body">
                   {displaySpayOrNeuter(formInput)}:
-                  <label className="add-pet__body add-pet__body--yes">
-                    <input
-                      type="radio"
-                      value="true"
-                      checked={formInput.isFixed === true}
-                      onChange={(e) =>
-                        setFormInput({ ...formInput, isFixed: true })
-                      }
-                    />
-                    IsMicro
-                  </label>
-                  <label className="add-pet__body add-pet__body--no">
-                    <input
-                      type="radio"
-                      value="false"
-                      checked={formInput.isFixed === false}
-                      onChange={(e) =>
-                        setFormInput({ ...formInput, isFixed: false })
-                      }
-                    />
-                    IsntMicro
-                  </label>
+                  <div className="add-pet__mf">
+                    <label className="add-pet__body add-pet__body--yes">
+                      {" "}
+                      <input
+                        type="radio"
+                        value="true"
+                        checked={formInput.isFixed === true}
+                        onChange={(e) =>
+                          setFormInput({ ...formInput, isFixed: true })
+                        }
+                      />
+                      IsMicro
+                    </label>
+                    <label className="add-pet__body add-pet__body--no">
+                      {" "}
+                      <input
+                        type="radio"
+                        value="false"
+                        checked={formInput.isFixed === false}
+                        onChange={(e) =>
+                          setFormInput({ ...formInput, isFixed: false })
+                        }
+                      />
+                      IsntMicro
+                    </label>
+                  </div>
                 </label>
               </div>
             </div>
-            <label className="add-pet__body">
-              Type:
+            <label className="add-pet__label">
+              Type:{" "}
               <select
                 type="select"
                 value={formInput.type}
@@ -313,7 +321,7 @@ function AddMyPetPage() {
             {formInput.type &&
               formInput.type !== "Hedgehog" &&
               formInput.type !== "Other" && (
-                <label className="add-pet__body">
+                <label className="add-pet__label">
                   Breed:
                   <select
                     value={formInput.breed}
@@ -351,7 +359,6 @@ function AddMyPetPage() {
                 placeholder="Your pet's weight in kg"
                 onChange={handleWeightInput}
               />
-              kg
             </label>
             <label htmlFor="" className="add-pet__label">
               Food:
@@ -384,29 +391,31 @@ function AddMyPetPage() {
               />
             </label>
             <label className="add-pet__body">
-              Microchipped:
-              <label className="add-pet__body add-pet__body--yes">
-                <input
-                  type="radio"
-                  value="true"
-                  checked={formInput.isMicrochipped === true}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, isMicrochipped: true })
-                  }
-                />
-                IsMicro
-              </label>
-              <label className="add-pet__body add-pet__body--no">
-                <input
-                  type="radio"
-                  value="false"
-                  checked={formInput.isMicrochipped === false}
-                  onChange={(e) =>
-                    setFormInput({ ...formInput, isMicrochipped: false })
-                  }
-                />
-                IsntMicro
-              </label>
+              Microchipped:{" "}
+              <div className="add-pet__mf">
+                <label className="add-pet__body add-pet__body--yes">
+                  <input
+                    type="radio"
+                    value="true"
+                    checked={formInput.isMicrochipped === true}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, isMicrochipped: true })
+                    }
+                  />
+                  IsMicro
+                </label>
+                <label className="add-pet__body add-pet__body--no">
+                  <input
+                    type="radio"
+                    value="false"
+                    checked={formInput.isMicrochipped === false}
+                    onChange={(e) =>
+                      setFormInput({ ...formInput, isMicrochipped: false })
+                    }
+                  />
+                  IsntMicro
+                </label>
+              </div>
             </label>
             {formInput.isMicrochipped && (
               <label htmlFor="" className="add-pet__label">
